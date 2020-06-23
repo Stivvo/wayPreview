@@ -1,0 +1,5 @@
+*.swp
+*.clangd
+buildServer/
+*.user
+*.stash
