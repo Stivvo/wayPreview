@@ -1,0 +1,38 @@
+[
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-pipe",
+            "-O2",
+            "-Wall",
+            "-Wextra",
+            "-D_REENTRANT",
+            "-fPIC",
+            "-DQT_NO_DEBUG",
+            "-DQT_WIDGETS_LIB",
+            "-DQT_GUI_LIB",
+            "-DQT_NETWORK_LIB",
+            "-DQT_CORE_LIB",
+            "-I../wayPreview/wayPreviewClient",
+            "-I.",
+            "-isystem",
+            "/usr/include/qt",
+            "-isystem",
+            "/usr/include/qt/QtWidgets",
+            "-isystem",
+            "/usr/include/qt/QtGui",
+            "-isystem",
+            "/usr/include/qt/QtNetwork",
+            "-isystem",
+            "/usr/include/qt/QtCore",
+            "-I.",
+            "-I/usr/lib/qt/mkspecs/linux-g++",
+            "-o",
+            "main.o",
+            "../wayPreview/wayPreviewClient/main.cpp"
+        ],
+        "directory": "/home/stefano/prog/wayPreview/clientBuild",
+        "file": "../wayPreview/wayPreviewClient/main.cpp"
+    }
+]
