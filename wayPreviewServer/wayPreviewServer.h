@@ -45,6 +45,7 @@ private:
     QScrollArea *scrollArea;
     double scaleFactor = 1;
     QSize resolution;
+    double scale;
 
     std::unique_ptr<QLocalServer> server;
     std::unique_ptr<QLocalSocket> client;

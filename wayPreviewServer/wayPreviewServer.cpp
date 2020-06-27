@@ -34,8 +34,9 @@ ImageViewer::ImageViewer(QWidget *parent)
     scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
     scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
 
+    scale = 0.3;
     cuts();
-    resize(QGuiApplication::primaryScreen()->availableSize() * 1 / 5);
+    resize(QGuiApplication::primaryScreen()->availableSize() * scale);
 }
 
 void ImageViewer::connection()
@@ -87,7 +88,6 @@ bool ImageViewer::loadFile(const QString &fileName)
     }
 
     setImage(newImage);
-
     setWindowFilePath(fileName);
 
     const QString message = tr("Opened \"%1\", %2x%3, Depth: %4")
@@ -96,6 +96,12 @@ bool ImageViewer::loadFile(const QString &fileName)
                                 .arg(image.height())
                                 .arg(image.depth());
     resolution = image.size();
+    double imageRatio = (double) ((double) resolution.width() / (double) resolution.height());
+    double height = QGuiApplication::primaryScreen()->availableSize().height() * scale;
+
+    resize((double) (height * imageRatio), height);
+    qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
+             << ", resolution: " << resolution << " ratio: " << imageRatio;
     fit();
     return true;
 }
