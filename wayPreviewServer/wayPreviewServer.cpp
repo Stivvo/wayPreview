@@ -34,8 +34,7 @@ ImageViewer::ImageViewer(QWidget *parent)
     scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
     scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
 
-    scale = 0.3;
-    cuts();
+    shortcuts();
     resize(QGuiApplication::primaryScreen()->availableSize() * scale);
 }
 
@@ -69,9 +68,41 @@ void ImageViewer::onNewConnection()
 
         if (command == "quit")
             closeDisconnect();
+        else if (command == "zin")
+            zoomIn();
+        else if (command == "zout")
+            zoomOut();
+        else if (command == "fit")
+            fit();
+        else if (command == "normal")
+            normalSize();
+        else if (command == "win")
+            resizeWindow(1.1);
+        else if (command == "wout")
+            resizeWindow(0.8);
+        else if (command == "infinite")
+            resizeWindow(1);
         else
             loadFile(command);
     });
+}
+
+void ImageViewer::resizeWindow(double factor)
+{
+    if (factor != 0)
+        scale *= factor;
+
+    double height = QGuiApplication::primaryScreen()->availableSize().height() * scale;
+
+    if (factor == 1)
+        resize(QGuiApplication::primaryScreen()->availableSize());
+    else
+        resize((double) (height * imageRatio), height);
+
+    qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
+             << ", resolution: " << resolution << " ratio: " << imageRatio;
+
+    fit();
 }
 
 bool ImageViewer::loadFile(const QString &fileName)
@@ -80,29 +111,16 @@ bool ImageViewer::loadFile(const QString &fileName)
     reader.setAutoTransform(true);
     const QImage newImage = reader.read();
     if (newImage.isNull()) {
-        QMessageBox::information(this,
-                                 QGuiApplication::applicationDisplayName(),
-                                 tr("Cannot load %1: %2")
-                                     .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
+        qDebug() << fileName << " not found in filesystem";
         return false;
     }
 
     setImage(newImage);
     setWindowFilePath(fileName);
 
-    const QString message = tr("Opened \"%1\", %2x%3, Depth: %4")
-                                .arg(QDir::toNativeSeparators(fileName))
-                                .arg(image.width())
-                                .arg(image.height())
-                                .arg(image.depth());
     resolution = image.size();
-    double imageRatio = (double) ((double) resolution.width() / (double) resolution.height());
-    double height = QGuiApplication::primaryScreen()->availableSize().height() * scale;
-
-    resize((double) (height * imageRatio), height);
-    qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
-             << ", resolution: " << resolution << " ratio: " << imageRatio;
-    fit();
+    imageRatio = (double) ((double) resolution.width() / (double) resolution.height());
+    resizeWindow(0);
     return true;
 }
 
@@ -148,7 +166,7 @@ void ImageViewer::closeDisconnect()
     QWidget::close();
 }
 
-void ImageViewer::cuts()
+void ImageViewer::shortcuts()
 {
     QShortcut *closeCut = new QShortcut(QKeySequence(Qt::Key_Q), this);
     QObject::connect(closeCut, &QShortcut::activated, this, &ImageViewer::closeDisconnect);

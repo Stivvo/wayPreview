@@ -29,23 +29,27 @@ public:
     void closeDisconnect();
 
 private slots:
+    void onNewConnection();
+
+public slots:
     void zoomIn();
     void zoomOut();
     void normalSize();
     void fit();
-    void onNewConnection();
 
 private:
-    void cuts();
+    void shortcuts();
     void setImage(const QImage &newImage);
     void scaleImage(double factor);
+    void resizeWindow(double factor);
 
     QImage image;
     QLabel *imageLabel;
     QScrollArea *scrollArea;
     double scaleFactor = 1;
     QSize resolution;
-    double scale;
+    double scale = 0.3;
+    double imageRatio;
 
     std::unique_ptr<QLocalServer> server;
     std::unique_ptr<QLocalSocket> client;
