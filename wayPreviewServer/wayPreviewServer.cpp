@@ -36,7 +36,38 @@ ImageViewer::ImageViewer(QWidget *parent)
     scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
 
     cuts();
-    resize(QGuiApplication::primaryScreen()->availableSize() * 3 / 5);
+    resize(QGuiApplication::primaryScreen()->availableSize() * 1 / 5);
+}
+
+void ImageViewer::connection()
+{
+    server.reset(new QLocalServer(this));
+
+    if (server->listen("wayPreview")) {
+        connect(server.get(), &QLocalServer::newConnection, this, &ImageViewer::onNewConnection);
+        qDebug() << "starting server";
+    } else {
+        qDebug() << "NOT " << server->errorString();
+    }
+}
+
+void ImageViewer::onNewConnection()
+{
+    client.reset(server->nextPendingConnection());
+    client->waitForConnected();
+    qDebug() << "starting client: " << client->errorString();
+    qDebug() << "full servername" << client->fullServerName();
+
+    connect(client.get(), &QLocalSocket::readyRead, this, [this]() {
+        QString fileName;
+        QDataStream reader(client.get());
+
+        reader.startTransaction();
+        reader >> fileName;
+        reader.commitTransaction();
+        qDebug() << "fileName: " << fileName;
+        loadFile(fileName);
+    });
 }
 
 bool ImageViewer::loadFile(const QString &fileName)
@@ -102,10 +133,17 @@ void ImageViewer::fit()
     imageLabel->resize(image.size());
 }
 
+void ImageViewer::closeDisconnect()
+{
+    client->disconnectFromServer();
+    server->disconnect();
+    QWidget::close();
+}
+
 void ImageViewer::cuts()
 {
     QShortcut *closeCut = new QShortcut(QKeySequence(Qt::Key_Q), this);
-    QObject::connect(closeCut, &QShortcut::activated, this, &QWidget::close);
+    QObject::connect(closeCut, &QShortcut::activated, this, &ImageViewer::closeDisconnect);
 
     QShortcut *normalCut = new QShortcut(QKeySequence(Qt::Key_S), this);
     QObject::connect(normalCut, &QShortcut::activated, this, &ImageViewer::normalSize);

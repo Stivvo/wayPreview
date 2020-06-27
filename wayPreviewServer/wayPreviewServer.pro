@@ -1,6 +1,4 @@
-QT += widgets
-requires(qtConfig(filedialog))
-qtHaveModule(printsupport): QT += printsupport
+QT += widgets network
 
 HEADERS       = wayPreviewServer.h
 SOURCES       = wayPreviewServer.cpp \
