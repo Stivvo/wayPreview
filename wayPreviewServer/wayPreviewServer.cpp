@@ -15,7 +15,6 @@
 #include <QScrollBar>
 #include <QShortcut>
 #include <QStandardPaths>
-#include <QStatusBar>
 
 ImageViewer::ImageViewer(QWidget *parent)
     : QMainWindow(parent)
@@ -59,14 +58,18 @@ void ImageViewer::onNewConnection()
     qDebug() << "full servername" << client->fullServerName();
 
     connect(client.get(), &QLocalSocket::readyRead, this, [this]() {
-        QString fileName;
+        QString command;
         QDataStream reader(client.get());
 
         reader.startTransaction();
-        reader >> fileName;
+        reader >> command;
         reader.commitTransaction();
-        qDebug() << "fileName: " << fileName;
-        loadFile(fileName);
+        qDebug() << "command: " << command;
+
+        if (command == "quit")
+            closeDisconnect();
+        else
+            loadFile(command);
     });
 }
 
@@ -93,7 +96,6 @@ bool ImageViewer::loadFile(const QString &fileName)
                                 .arg(image.height())
                                 .arg(image.depth());
     resolution = image.size();
-    statusBar()->showMessage(message);
     fit();
     return true;
 }
