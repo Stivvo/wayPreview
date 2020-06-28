@@ -70,22 +70,20 @@ void ImageViewer::onNewConnection()
         reader.commitTransaction();
         qDebug() << "command: " << command;
 
-        if (command == "quit")
+        if (command.startsWith("quit"))
             closeDisconnect();
-        else if (command == "zin")
-            zoomIn();
-        else if (command == "zout")
-            zoomOut();
-        else if (command == "fit")
-            fit();
-        else if (command == "normal")
+        else if (command.startsWith("normal"))
             normalSize();
-        else if (command == "win")
-            resizeWindow(1.1);
-        else if (command == "wout")
-            resizeWindow(0.8);
-        else if (command == "infinite")
+        else if (command.startsWith("fit"))
+            fit();
+        else if (command.startsWith("infinite"))
             toggleInfinite();
+        else if (command.startsWith("zoom"))
+            scaleImage(command.section(" ", 1).toDouble());
+        else if (command.startsWith("wzoom"))
+            resizeWindow(command.section(" ", 1).toDouble());
+        else if (command.startsWith("wsize"))
+            setWscale(command.section(" ", 1).toDouble());
         else
             loadFile(command);
     });

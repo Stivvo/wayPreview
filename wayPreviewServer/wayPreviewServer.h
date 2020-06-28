@@ -44,8 +44,8 @@ private:
     void resizeWindow(double factor);
     void setWscale(double newScale);
     void toggleInfinite();
-    bool infinite;
 
+    bool infinite;
     QImage image;
     QLabel *imageLabel;
     QScrollArea *scrollArea;
