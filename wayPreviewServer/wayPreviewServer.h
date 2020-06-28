@@ -42,13 +42,17 @@ private:
     void setImage(const QImage &newImage);
     void scaleImage(double factor);
     void resizeWindow(double factor);
+    void setWscale(double newScale);
+    void toggleInfinite();
+    bool infinite;
 
     QImage image;
     QLabel *imageLabel;
     QScrollArea *scrollArea;
-    double scaleFactor = 1;
+    double imgScale;
     QSize resolution;
-    double scale = 0.3;
+    double wScale;
+    double prevWscale;
     double imageRatio;
 
     std::unique_ptr<QLocalServer> server;

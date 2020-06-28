@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QCommandLineParser parser;
     parser.addHelpOption();
-    parser.addPositionalArgument("[file]", "Image file to open.");
+    parser.addPositionalArgument("[file]",
+                                 "Image file to open. If set, all double dash options are ignored");
 
     QVector<QString> optionNames
         = {"zin", "zout", "fit", "normal", "win", "wout", "infinite", "quit"};
@@ -33,8 +34,8 @@ int main(int argc, char *argv[])
            "image real size, 1:1 pixel",
            "increase window size (floating window only)",
            "decrease window size (floating window only)",
-           "assing the window the max possible size (useful if the server is tiling or "
-           "fullscreen)",
+           "assing the window the max possible size (\"tiling\" or \"fullscreen\" mode). If is "
+           "already set, it will return to \"floating\" mode, with previous window size",
            "close and disconnect the server"};
 
     socket.connectToServer("wayPreview");
@@ -48,10 +49,11 @@ int main(int argc, char *argv[])
 
     if (!parser.positionalArguments().isEmpty())
         sendMsg(parser.positionalArguments().front());
-
-    for (QString optionName : optionNames) {
-        if (parser.isSet(optionName))
-            sendMsg(optionName);
+    else {
+        for (QString optionName : optionNames) {
+            if (parser.isSet(optionName))
+                sendMsg(optionName);
+        }
     }
 
     socket.disconnectFromServer();

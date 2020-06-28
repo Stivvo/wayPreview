@@ -34,8 +34,12 @@ ImageViewer::ImageViewer(QWidget *parent)
     scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
     scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
 
+    wScale = prevWscale = 0.3;
+    imgScale = 1;
+    infinite = false;
+
     shortcuts();
-    resize(QGuiApplication::primaryScreen()->availableSize() * scale);
+    resize(QGuiApplication::primaryScreen()->availableSize() * wScale);
 }
 
 void ImageViewer::connection()
@@ -81,28 +85,40 @@ void ImageViewer::onNewConnection()
         else if (command == "wout")
             resizeWindow(0.8);
         else if (command == "infinite")
-            resizeWindow(1);
+            toggleInfinite();
         else
             loadFile(command);
     });
 }
 
+void ImageViewer::toggleInfinite()
+{
+    if (infinite)
+        wScale = prevWscale;
+    else {
+        prevWscale = wScale;
+        wScale = 1;
+    }
+
+    infinite = !infinite;
+    setWscale(wScale);
+}
+
+void ImageViewer::setWscale(double newScale)
+{
+    wScale = newScale;
+    double height = QGuiApplication::primaryScreen()->availableSize().height() * wScale;
+    resize((double) (height * imageRatio), height);
+    qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
+             << ", resolution: " << resolution << " ratio: " << imageRatio << ", wScale: " << wScale
+             << ", infinite: " << infinite;
+    fit();
+}
+
 void ImageViewer::resizeWindow(double factor)
 {
-    if (factor != 0)
-        scale *= factor;
-
-    double height = QGuiApplication::primaryScreen()->availableSize().height() * scale;
-
-    if (factor == 1)
-        resize(QGuiApplication::primaryScreen()->availableSize());
-    else
-        resize((double) (height * imageRatio), height);
-
-    qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
-             << ", resolution: " << resolution << " ratio: " << imageRatio;
-
-    fit();
+    wScale *= factor;
+    setWscale(wScale);
 }
 
 bool ImageViewer::loadFile(const QString &fileName)
@@ -120,7 +136,8 @@ bool ImageViewer::loadFile(const QString &fileName)
 
     resolution = image.size();
     imageRatio = (double) ((double) resolution.width() / (double) resolution.height());
-    resizeWindow(0);
+
+    setWscale(wScale);
     return true;
 }
 
@@ -130,7 +147,7 @@ void ImageViewer::setImage(const QImage &newImage)
     if (image.colorSpace().isValid())
         image.convertToColorSpace(QColorSpace::SRgb);
     imageLabel->setPixmap(QPixmap::fromImage(image));
-    scaleFactor = 1.0;
+    imgScale = 1.0;
 
     scrollArea->setVisible(true);
 }
@@ -148,14 +165,14 @@ void ImageViewer::zoomOut()
 void ImageViewer::normalSize()
 {
     imageLabel->adjustSize();
-    scaleFactor = 1.0;
+    imgScale = 1.0;
 }
 
 void ImageViewer::fit()
 {
     normalSize();
     image = image.scaled(scrollArea->size(), Qt::KeepAspectRatio, Qt::FastTransformation);
-    scaleFactor = (double) scrollArea->width() / resolution.width();
+    imgScale = (double) scrollArea->width() / resolution.width();
     imageLabel->resize(image.size());
 }
 
@@ -186,6 +203,6 @@ void ImageViewer::shortcuts()
 
 void ImageViewer::scaleImage(double factor)
 {
-    scaleFactor *= factor;
-    imageLabel->resize(scaleFactor * imageLabel->pixmap(Qt::ReturnByValue).size());
+    imgScale *= factor;
+    imageLabel->resize(imgScale * imageLabel->pixmap(Qt::ReturnByValue).size());
 }
