@@ -12,8 +12,11 @@ int main(int argc, char *argv[])
 
     QLocalSocket socket;
     socket.connectToServer("wayPreview");
-    if (!socket.isValid())
+    qDebug() << socket.errorString();
+    if (!socket.isValid()) {
+        qDebug() << "cannot connect";
         return 1;
+    }
 
     parser.addOptions(
         {QCommandLineOption("quit", "close and disconnect the server"),
@@ -60,7 +63,6 @@ int main(int argc, char *argv[])
     writer.startTransaction();
     writer << msg;
     writer.commitTransaction();
-    qDebug() << socket.errorString();
 
     if (socket.flush())
         qDebug() << "data was written";
