@@ -3,28 +3,14 @@
 #include <QDataStream>
 #include <QLocalSocket>
 
-QLocalSocket socket;
-
-void sendMsg(QString msg)
-{
-    QDataStream writer(&socket);
-    writer.startTransaction();
-    writer << msg;
-    writer.commitTransaction();
-    qDebug() << socket.errorString();
-
-    if (socket.flush())
-        qDebug() << "data was written";
-}
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QCommandLineParser parser;
     parser.addHelpOption();
-    parser.addPositionalArgument("[file]",
-                                 "Image file to open. If set, all double dash options are ignored");
+    parser.addPositionalArgument("[file]", "Image file to open");
 
+    QLocalSocket socket;
     socket.connectToServer("wayPreview");
     if (!socket.isValid())
         return 1;
@@ -50,28 +36,34 @@ int main(int argc, char *argv[])
              "already set, it will return to \"floating\" mode, with previous window size")});
 
     parser.process(QCoreApplication::arguments());
+    QString msg = "";
 
     if (!parser.positionalArguments().isEmpty())
-        sendMsg(parser.positionalArguments().front());
-    else {
-        QString msg = "";
-        if (parser.isSet("quit"))
-            msg += " quit";
-        if (parser.isSet("normal"))
-            msg += " normal";
-        if (parser.isSet("fit"))
-            msg += " fit";
-        if (parser.isSet("zoom") && !parser.value("zoom").isEmpty())
-            msg += (" zoom " + parser.value("zoom"));
-        if (parser.isSet("wsize") && !parser.value("wsize").isEmpty())
-            msg += (" wsize " + parser.value("wsize"));
-        if (parser.isSet("wzoom") && !parser.value("wzoom").isEmpty())
-            msg += (" wzoom " + parser.value("wzoom"));
-        if (parser.isSet("infinite"))
-            msg += " infinite";
-        msg += " ";
-        sendMsg(msg);
-    }
+        msg = parser.positionalArguments().front() + "|";
+    if (parser.isSet("quit"))
+        msg += " quit";
+    if (parser.isSet("normal"))
+        msg += " normal";
+    if (parser.isSet("fit"))
+        msg += " fit";
+    if (parser.isSet("zoom") && !parser.value("zoom").isEmpty())
+        msg += (" zoom " + parser.value("zoom"));
+    if (parser.isSet("wsize") && !parser.value("wsize").isEmpty())
+        msg += (" wsize " + parser.value("wsize"));
+    if (parser.isSet("wzoom") && !parser.value("wzoom").isEmpty())
+        msg += (" wzoom " + parser.value("wzoom"));
+    if (parser.isSet("infinite"))
+        msg += " infinite";
+    msg += " ";
+
+    QDataStream writer(&socket);
+    writer.startTransaction();
+    writer << msg;
+    writer.commitTransaction();
+    qDebug() << socket.errorString();
+
+    if (socket.flush())
+        qDebug() << "data was written";
 
     socket.disconnectFromServer();
     socket.disconnect();

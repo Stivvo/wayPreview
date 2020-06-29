@@ -70,26 +70,28 @@ void ImageViewer::onNewConnection()
         reader.commitTransaction();
         qDebug() << "command: " << command;
 
-        if (command.contains("/"))
-            loadFile(command);
-        else {
-            auto splitC = command.split(" ").toVector();
-            int index;
-            if (command.contains("quit"))
-                closeDisconnect();
-            if (command.contains("normal"))
-                normalSize();
-            if (command.contains("fit"))
-                fit();
-            if ((index = splitC.indexOf("zoom")) != -1)
-                scaleImage(splitC[index + 1].toDouble());
-            if ((index = splitC.indexOf("wsize")) != -1)
-                setWscale(splitC[index + 1].toDouble());
-            if ((index = splitC.indexOf("wzoom")) != -1)
-                resizeWindow(splitC[index + 1].toDouble());
-            if (command.contains("infinite"))
-                toggleInfinite();
+        if (command.contains("|")) {
+            auto splitC = command.split("|").toVector();
+            loadFile(splitC[0]);
+            command = splitC[1];
         }
+
+        auto splitC = command.split(" ").toVector();
+        int index;
+        if (command.contains("quit"))
+            closeDisconnect();
+        if ((index = splitC.indexOf("wsize")) != -1)
+            setWscale(splitC[index + 1].toDouble());
+        if ((index = splitC.indexOf("wzoom")) != -1)
+            resizeWindow(splitC[index + 1].toDouble());
+        if (command.contains("infinite"))
+            toggleInfinite();
+        if (command.contains("normal"))
+            normalSize();
+        if (command.contains("fit"))
+            fit();
+        if ((index = splitC.indexOf("zoom")) != -1)
+            scaleImage(splitC[index + 1].toDouble());
     });
 }
 
@@ -114,7 +116,6 @@ void ImageViewer::setWscale(double newScale)
     qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
              << ", resolution: " << resolution << " ratio: " << imageRatio << ", wScale: " << wScale
              << ", infinite: " << infinite;
-    /* fit(); */
 }
 
 void ImageViewer::resizeWindow(double factor)
