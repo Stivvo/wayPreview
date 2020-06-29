@@ -70,22 +70,26 @@ void ImageViewer::onNewConnection()
         reader.commitTransaction();
         qDebug() << "command: " << command;
 
-        if (command.startsWith("quit"))
-            closeDisconnect();
-        else if (command.startsWith("normal"))
-            normalSize();
-        else if (command.startsWith("fit"))
-            fit();
-        else if (command.startsWith("infinite"))
-            toggleInfinite();
-        else if (command.startsWith("zoom"))
-            scaleImage(command.section(" ", 1).toDouble());
-        else if (command.startsWith("wzoom"))
-            resizeWindow(command.section(" ", 1).toDouble());
-        else if (command.startsWith("wsize"))
-            setWscale(command.section(" ", 1).toDouble());
-        else
+        if (command.contains("/"))
             loadFile(command);
+        else {
+            auto splitC = command.split(" ").toVector();
+            int index;
+            if (command.contains("quit"))
+                closeDisconnect();
+            if (command.contains("normal"))
+                normalSize();
+            if (command.contains("fit"))
+                fit();
+            if ((index = splitC.indexOf("zoom")) != -1)
+                scaleImage(splitC[index + 1].toDouble());
+            if ((index = splitC.indexOf("wsize")) != -1)
+                setWscale(splitC[index + 1].toDouble());
+            if ((index = splitC.indexOf("wzoom")) != -1)
+                resizeWindow(splitC[index + 1].toDouble());
+            if (command.contains("infinite"))
+                toggleInfinite();
+        }
     });
 }
 
@@ -110,11 +114,12 @@ void ImageViewer::setWscale(double newScale)
     qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
              << ", resolution: " << resolution << " ratio: " << imageRatio << ", wScale: " << wScale
              << ", infinite: " << infinite;
-    fit();
+    /* fit(); */
 }
 
 void ImageViewer::resizeWindow(double factor)
 {
+    qDebug() << "resizeWindow " << factor;
     wScale *= factor;
     setWscale(wScale);
 }
@@ -201,6 +206,7 @@ void ImageViewer::shortcuts()
 
 void ImageViewer::scaleImage(double factor)
 {
+    qDebug() << "scaleImage " << factor;
     imgScale *= factor;
     imageLabel->resize(imgScale * imageLabel->pixmap(Qt::ReturnByValue).size());
 }

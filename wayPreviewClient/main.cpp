@@ -33,41 +33,44 @@ int main(int argc, char *argv[])
         {QCommandLineOption("quit", "close and disconnect the server"),
          QCommandLineOption("normal", "image real size, 1:1 pixel"),
          QCommandLineOption("fit", "fit image to window"),
-         QCommandLineOption(
-             "infinite",
-             "assing the window the max possible size (\"tiling\" or \"fullscreen\" mode). If "
-             "is "
-             "already set, it will return to \"floating\" mode, with previous window size"),
          QCommandLineOption("zoom",
                             "zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)",
-                            "factor"),
-         QCommandLineOption("wzoom",
-                            "resize window by a <factor> (< 1 smaller, > 1 bigger)",
                             "factor"),
          QCommandLineOption("wsize",
                             "set the <ratio>, between window height and screen height (0.5 uses "
                             "half of the screen height), 0.3 is default if not set",
-                            "ratio")});
+                            "ratio"),
+         QCommandLineOption("wzoom",
+                            "resize window by a <factor> (< 1 smaller, > 1 bigger)",
+                            "factor"),
+         QCommandLineOption(
+             "infinite",
+             "assing the window the max possible size (\"tiling\" or \"fullscreen\" mode). If "
+             "is "
+             "already set, it will return to \"floating\" mode, with previous window size")});
 
     parser.process(QCoreApplication::arguments());
 
     if (!parser.positionalArguments().isEmpty())
         sendMsg(parser.positionalArguments().front());
     else {
+        QString msg = "";
         if (parser.isSet("quit"))
-            sendMsg("quit");
+            msg += " quit";
         if (parser.isSet("normal"))
-            sendMsg("normal");
+            msg += " normal";
         if (parser.isSet("fit"))
-            sendMsg("fit");
-        if (parser.isSet("infinite"))
-            sendMsg("infinite");
+            msg += " fit";
         if (parser.isSet("zoom") && !parser.value("zoom").isEmpty())
-            sendMsg("zoom " + parser.value("zoom"));
-        if (parser.isSet("wzoom") && !parser.value("wzoom").isEmpty())
-            sendMsg("wzoom " + parser.value("wzoom"));
+            msg += (" zoom " + parser.value("zoom"));
         if (parser.isSet("wsize") && !parser.value("wsize").isEmpty())
-            sendMsg("wsize " + parser.value("wsize"));
+            msg += (" wsize " + parser.value("wsize"));
+        if (parser.isSet("wzoom") && !parser.value("wzoom").isEmpty())
+            msg += (" wzoom " + parser.value("wzoom"));
+        if (parser.isSet("infinite"))
+            msg += " infinite";
+        msg += " ";
+        sendMsg(msg);
     }
 
     socket.disconnectFromServer();
