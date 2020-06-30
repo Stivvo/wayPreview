@@ -2,12 +2,13 @@
 
 A client server, wayland native, terminal emulator independent image previewer
 
+<img src="fffWayPreview.gif" alt="wayPreview running on fff in floating mode" height="215" align="right"/>
+
 ## Introduction
 
 Terminal file managers are great, but they all have a major drawback when it
-comes to image previews:
-lots of terminal emulators don't support image previews, moreover it seems like
-there's no way to make this feature work natively on wayland.
+comes to image previews: lots of terminal emulators don't support them, moreover
+it seems like there's no way to make this feature work natively on wayland.
 
 For this reason, wayPreview is a GUI application, written in Qt. It can work
 both as a floating and tiling and full screen window (if you have more than one
@@ -19,13 +20,13 @@ The server is the actual window that displays the image, the client is used to
 send to the server the path of the image to be previewed and other options (like
 the zoom) through a local (UNIX) socket.
 
-My fork of [fff](https://github.com/Stivvo/fff) works out of the box with
-wayPreview and the [sway window manager](https://github.com/swaywm/sway).
+Works out of the box with [my fork](https://github.com/Stivvo/fff) of the FFF
+file manager and the [sway](https://github.com/swaywm/sway) window manager.
 
 ## Compile, install
 
-Requires qt base, widgets and network. I encourage you to look at install.sh and
-unistall.sh before running them.
+Requires qt base, widgets and network. I encourage to look at
+[install.sh](install.sh) and [unistall.sh](unistall.sh) before running them.
 
 ```bash
 mkdir wayPreview
@@ -120,3 +121,6 @@ The factor is a decimal number that will multiply the related value by itself
 The order in which the options appear on the menu is the same order in which
 they are applied by the server. The exception is the file opening, which is
 always done as first.
+
+(The lag in the gif is only because of the recording BTW)
+
