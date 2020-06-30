@@ -9,15 +9,6 @@ int main(int argc, char *argv[])
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addPositionalArgument("[file]", "Image file to open");
-
-    QLocalSocket socket;
-    socket.connectToServer("wayPreview");
-    qDebug() << socket.errorString();
-    if (!socket.isValid()) {
-        qDebug() << "cannot connect";
-        return 1;
-    }
-
     parser.addOptions(
         {QCommandLineOption("quit", "close and disconnect the server"),
          QCommandLineOption("normal", "image real size, 1:1 pixel"),
@@ -58,6 +49,14 @@ int main(int argc, char *argv[])
     if (parser.isSet("infinite"))
         msg += " infinite";
     msg += " ";
+
+    QLocalSocket socket;
+    socket.connectToServer("wayPreview");
+    qDebug() << socket.errorString();
+    if (!socket.isValid()) {
+        qDebug() << "cannot connect";
+        return 1;
+    }
 
     QDataStream writer(&socket);
     writer.startTransaction();
