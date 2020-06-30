@@ -57,7 +57,6 @@ void ImageViewer::connection()
 void ImageViewer::onNewConnection()
 {
     client.reset(server->nextPendingConnection());
-    client->waitForConnected();
     qDebug() << "starting client: " << client->errorString();
     qDebug() << "full servername" << client->fullServerName();
 

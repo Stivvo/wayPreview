@@ -4,11 +4,9 @@
 # the first image
 
 wayPreviewServer &
-CO=true
-while [ $CO == true ]
+while [ ! -S /tmp/wayPreview ]
 do
-    sleep 0.01s
-    ls /tmp/wayPreview 2> /dev/null && CO=false
+    sleep 0.1s
 done
-swaymsg focus tiling
-wayPreviewClient "$1" --fit
+swaymsg focus tiling # remove focus from floating window (sway wm only)
+wayPreviewClient "$1" --fit --wsize 0.5
