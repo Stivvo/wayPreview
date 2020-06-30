@@ -1,4 +1,5 @@
 # wayPreview
+
 A client server, wayland native, terminal emulator independent image previewer
 
 ## Introduction
@@ -9,7 +10,7 @@ lots of terminal emulators don't support image previews, moreover it seems like
 there's no way to make this feature work natively on wayland.
 
 For this reason, wayPreview is a GUI application, written in Qt. It can work
-both as a floating and tiling and fullscreen window (if you have more than one
+both as a floating and tiling and full screen window (if you have more than one
 monitor). When used as a floating window, it looks the same as w3m for example,
 the image preview occurs on top of the actual terminal
 window where the file manager is running.
@@ -20,22 +21,11 @@ the zoom) through a local (UNIX) socket.
 
 My fork of [fff](https://github.com/Stivvo/fff) works out of the box with
 wayPreview and the [sway window manager](https://github.com/swaywm/sway).
-However, a one line editing of ``wrapWayPserver.sh`` could make it work with
-every window manager.
 
-However, most terminal file managers have a configuration file that can bind
-keys to the execution of shell commands, therefore also wayPreviewClient.
-The use of wayPreview isn't necessarely limited to previews in terminal file
-managers through.
+## Compile, install
 
-The server doesn't support any option, all must be done through the client. To
-set default options, is possible to append them to ``wrapWayPclient.sh`` (my
-fork of fff already uses it) or make your own wrapper script and use it instead
-of wayPreviewClient.
-
-## Compile, install, configure
-
-Requires qt base, widgets and network
+Requires qt base, widgets and network. I encourage you to look at install.sh and
+unistall.sh before running them.
 
 ```bash
 mkdir wayPreview
@@ -67,11 +57,38 @@ You may also want to disable borders:
 for_window [app_id="wayPreviewServer"] border none
 ```
 
+## Configuration
+
+The installation process will create 4 executables:
+
+* ``wayPreviewClient`` command line tool to open files and set options
+* ``wayPreviewServer`` the window (always running)
+* ``wrapWayPclient.sh`` appends to wayPreviewClient default options and opens a
+    file passed as argument
+* ``wrapWayPserver.sh`` executes the server, focuses tiling windows and
+    runs wrapWayPclient.sh to view the first image passed as parameter
+
+Tiling windows focus done by ``wrapWayPserver.sh`` is sway wm specific, but is
+possible to change this behaviour editing or deliting its second last line.
+
+My fork of fff works out of the box with wayPreview and only uses the shell
+wrappers, which can easily be customized by the user. However, most terminal
+file managers have a configuration file that can bind keys to shell commands.
+
+The use of wayPreview isn't necessarily limited to previews for terminal file
+managers though.
+
+If for whatever reason something brakes, just delete the socket file:
+
+```bash
+sudo rm /tmp/wayPreview
+```
+
 ## Options
 
 All the options can be found with ``wayPreviewClient --help``. Those options can
-only be set from the client and have effect on the server (open a file, set any
-number of options, or both).
+only be set from the client and have effect on the server. They allow to open a
+file, set any number of options, or both.
 
 ```
 Usage: wayPreviewClient [options] [file]
@@ -95,7 +112,7 @@ Arguments:
   [file]            Image file to open
 ```
 
-The ``--infinite`` option is useful when running wayPreviewServer in fullscreen
+The ``--infinite`` option is useful when running wayPreviewServer in full screen
 mode, because it sets the window height
 
 The factor is a decimal number that will multiply the related value by itself
