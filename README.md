@@ -20,7 +20,7 @@ the zoom) through a local (UNIX) socket.
 
 My fork of [fff](https://github.com/Stivvo/fff) works out of the box with
 wayPreview and the [sway window manager](https://github.com/swaywm/sway).
-However, a one line editing of ``wayPreviewWrapper.sh`` can make it work with
+However, a one line editing of ``wrapWayPserver.sh`` could make it work with
 every window manager.
 
 However, most terminal file managers have a configuration file that can bind
@@ -29,8 +29,9 @@ The use of wayPreview isn't necessarely limited to previews in terminal file
 managers through.
 
 The server doesn't support any option, all must be done through the client. To
-set default options, is possible to append them to the last line of
-``wayPreviewWrapper.sh`` or make your own wrapper script.
+set default options, is possible to append them to ``wrapWayPclient.sh`` (my
+fork of fff already uses it) or make your own wrapper script and use it instead
+of wayPreviewClient.
 
 ## Compile, install, configure
 
