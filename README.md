@@ -26,12 +26,13 @@ file manager and the [sway](https://github.com/swaywm/sway) window manager.
 ## Compile, install
 
 Requires qt base, widgets and network. I encourage to look at
-[install.sh](install.sh) and [unistall.sh](unistall.sh) before running them.
+[install.sh](scripts/install.sh) and [unistall.sh](scripts/unistall.sh) before running them.
 
 ```bash
-mkdir wayPreview
-cd wayPreview
+mkdir wayPreview1
+cd wayPreview1
 git clone https://github.com/Stivvo/wayPreview
+cd scripts
 chmod +x compile.sh
 ./compile.sh
 chmod +x install.sh
@@ -41,6 +42,7 @@ sudo ./install.sh
 To unistall:
 
 ```bash
+cd wayPreview1/wayPreview/scripts/
 chmod +x unistall.sh
 ./unistall.sh
 ```
@@ -69,8 +71,8 @@ The installation process will create 4 executables:
 * ``wrapWayPserver.sh`` executes the server, focuses tiling windows and
     runs wrapWayPclient.sh to view the first image passed as parameter
 
-Tiling windows focus done by ``wrapWayPserver.sh`` is sway wm specific, but is
-possible to change this behaviour editing or deliting its second last line.
+The command used by ``wrapWayPserver.sh`` to focus tiling windows is sway wm specific, but is
+possible to adapt it to different window managers editing or deliting its second last line.
 
 My fork of fff works out of the box with wayPreview and only uses the shell
 wrappers, which can easily be customized by the user. However, most terminal
@@ -124,3 +126,13 @@ always done as first.
 
 (The lag in the gif is only because of the recording BTW)
 
+## Keyboard shortcuts
+
+Even though the focus of this project is its client-server architecture, some keyboard shortcuts on
+the server window may be useful too:
+
++ ``q`` close the window and the socket communication (same as ``--quit``)
++ ``s`` image real size (same as ``--normal``)
++ ``a`` fit the image to window (same as ``--fit``)
++ ``i`` zoom in the image (same as ``--zoom 1.1``)
++ ``o`` zoom out the image (same as ``--zoom 0.9``)
