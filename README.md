@@ -1,8 +1,9 @@
+<img src="fffWayPreview.gif" alt="wayPreview running on fff in floating mode"
+height="260" align="right" style="margin-left: 1px; margin-bottom: 1px;"/>
+
 # wayPreview
 
 A client server, wayland native, terminal emulator independent image previewer
-
-<img src="fffWayPreview.gif" alt="wayPreview running on fff in floating mode" height="215" align="right"/>
 
 ## Introduction
 
@@ -10,11 +11,15 @@ Terminal file managers are great, but they all have a major drawback when it
 comes to image previews: lots of terminal emulators don't support them, moreover
 it seems like there's no way to make this feature work natively on wayland.
 
+In fact, this project's main goal is to bring the ranger with w3m or ueberzug
+functionalities on all file managers and terminal emulators, in a completely
+different way, while also adding more features and customisability.
+
 For this reason, wayPreview is a GUI application, written in Qt. It can work
 both as a floating and tiling and full screen window (if you have more than one
 monitor). When used as a floating window, it looks the same as w3m for example,
-the image preview occurs on top of the actual terminal
-window where the file manager is running.
+the image preview occurs on top of the actual terminal window where the file
+manager is running.
 
 The server is the actual window that displays the image, the client is used to
 send to the server the path of the image to be previewed and other options (like
@@ -26,7 +31,8 @@ file manager and the [sway](https://github.com/swaywm/sway) window manager.
 ## Compile, install
 
 Requires qt base, widgets and network. I encourage to look at
-[install.sh](scripts/install.sh) and [unistall.sh](scripts/unistall.sh) before running them.
+[install.sh](scripts/install.sh) and [unistall.sh](scripts/unistall.sh) before
+running them.
 
 ```bash
 mkdir wayPreview1
@@ -71,8 +77,9 @@ The installation process will create 4 executables:
 * ``wrapWayPserver.sh`` executes the server, focuses tiling windows and
     runs wrapWayPclient.sh to view the first image passed as parameter
 
-The command used by ``wrapWayPserver.sh`` to focus tiling windows is sway wm specific, but is
-possible to adapt it to different window managers editing or deliting its second last line.
+The command used by ``wrapWayPserver.sh`` to focus tiling windows is sway wm
+specific, but is possible to adapt it to different window managers editing or
+deliting its second last line.
 
 My fork of fff works out of the box with wayPreview and only uses the shell
 wrappers, which can easily be customized by the user. However, most terminal
@@ -128,8 +135,8 @@ always done as first.
 
 ## Keyboard shortcuts
 
-Even though the focus of this project is its client-server architecture, some keyboard shortcuts on
-the server window may be useful too:
+Even though the focus of this project is its client-server architecture, some
+keyboard shortcuts on the server window may be useful too:
 
 + ``q`` close the window and the socket communication (same as ``--quit``)
 + ``s`` image real size (same as ``--normal``)
