@@ -21,22 +21,26 @@ class ImageViewer : public QMainWindow
 public:
     ImageViewer(QWidget *parent = nullptr);
 
-private slots:
+public slots:
     bool loadFile(const QString &);
-    void onNewConnection();
     void quit();
     void normalSize();
     void fit();
+
+private slots:
+    void onNewConnection();
     void zoomIn();
     void zoomOut();
+
+public:
+    void setWsize(double newScale);
+    void zoomWindow(double factor);
+    void toggleInfinite();
+    void zoomImage(double factor);
 
 private:
     void shortcuts();
     void setImage(const QImage &newImage);
-    void setWsize(double newScale);
-    void resizeWindow(double factor);
-    void toggleInfinite();
-    void scaleImage(double factor);
 
     QImage image;
     QLabel *imageLabel;

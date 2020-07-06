@@ -68,7 +68,7 @@ void ImageViewer::onNewConnection()
         if ((index = splitC.indexOf("wsize")) != -1)
             setWsize(splitC[index + 1].toDouble());
         if ((index = splitC.indexOf("wzoom")) != -1)
-            resizeWindow(splitC[index + 1].toDouble());
+            zoomWindow(splitC[index + 1].toDouble());
         if (command.contains("infinite"))
             toggleInfinite();
         if (command.contains("normal"))
@@ -76,7 +76,7 @@ void ImageViewer::onNewConnection()
         if (command.contains("fit"))
             fit();
         if ((index = splitC.indexOf("zoom")) != -1)
-            scaleImage(splitC[index + 1].toDouble());
+            zoomImage(splitC[index + 1].toDouble());
     });
 }
 
@@ -102,9 +102,9 @@ void ImageViewer::setWsize(double newScale)
     resize(newSize);
 }
 
-void ImageViewer::resizeWindow(double factor)
+void ImageViewer::zoomWindow(double factor)
 {
-    qDebug() << "resizeWindow " << factor;
+    qDebug() << "zoomWindow " << factor;
     wSize *= factor;
     setWsize(wSize);
 }
@@ -143,12 +143,12 @@ void ImageViewer::setImage(const QImage &newImage)
 
 void ImageViewer::zoomIn()
 {
-    scaleImage(1.1);
+    zoomImage(1.1);
 }
 
 void ImageViewer::zoomOut()
 {
-    scaleImage(0.9);
+    zoomImage(0.9);
 }
 
 void ImageViewer::normalSize()
@@ -190,9 +190,9 @@ void ImageViewer::shortcuts()
     QObject::connect(zoutCut, &QShortcut::activated, this, &ImageViewer::zoomOut);
 }
 
-void ImageViewer::scaleImage(double factor)
+void ImageViewer::zoomImage(double factor)
 {
-    qDebug() << "scaleImage " << factor;
+    qDebug() << "zoomImage " << factor;
     imgScale *= factor;
     imageLabel->resize(imgScale * imageLabel->pixmap(Qt::ReturnByValue).size());
 }
