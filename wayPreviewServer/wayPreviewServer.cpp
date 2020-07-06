@@ -34,7 +34,7 @@ ImageViewer::ImageViewer(QWidget *parent)
     shortcuts();
     resize(QGuiApplication::primaryScreen()->availableSize() * wSize);
 
-    server.reset(new QLocalServer(this));
+    server = std::make_unique<QLocalServer>();
     if (server->listen("wayPreview"))
         connect(server.get(), &QLocalServer::newConnection, this, &ImageViewer::onNewConnection);
     else
