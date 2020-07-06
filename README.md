@@ -11,15 +11,15 @@ Terminal file managers are great, but they all have a major drawback when it
 comes to image previews: lots of terminal emulators don't support them, moreover
 it seems like there's no way to make this feature work natively on wayland.
 
-In fact, this project's main goal is to bring the ranger with w3m or ueberzug
-functionalities on all file managers and terminal emulators, in a completely
+In fact, this project's main goal is to bring the functionalities of ranger with
+w3m or ueberzug on all file managers and terminal emulators in a completely
 different way, while also adding more features and customisability.
 
 For this reason, wayPreview is a GUI application, written in Qt. It can work
-both as a floating and tiling and full screen window (if you have more than one
-monitor). When used as a floating window, it looks the same as w3m for example,
-the image preview occurs on top of the actual terminal window where the file
-manager is running.
+both as a floating and tiling or full screen window. When used as a floating
+window, it behaves similarly to w3m / ueberzug (like the gif above): the image
+preview occurs on top of the actual terminal window where the file manager is
+running.
 
 The server is the actual window that displays the image, the client is used to
 send to the server the path of the image to be previewed and other options (like
@@ -84,11 +84,7 @@ file manager's config from wayPreview's config.
 
 The command used by ``wrapWayPserver.sh`` to focus tiling windows is sway wm
 specific, but is possible to adapt it to different window managers editing or
-deliting its second last line.
-
-My fork of fff works out of the box with wayPreview and only uses the shell
-wrappers, which can easily be customized by the user. However, most terminal
-file managers have a configuration file that can bind keys to shell commands.
+deliting its last line.
 
 The use of wayPreview isn't necessarily limited to previews for terminal file
 managers though.
