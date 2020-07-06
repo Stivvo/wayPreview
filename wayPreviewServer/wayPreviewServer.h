@@ -24,7 +24,7 @@ public:
 private slots:
     bool loadFile(const QString &);
     void onNewConnection();
-    void closeDisconnect();
+    void quit();
     void normalSize();
     void fit();
     void zoomIn();
@@ -33,20 +33,21 @@ private slots:
 private:
     void shortcuts();
     void setImage(const QImage &newImage);
-    void setWscale(double newScale);
+    void setWsize(double newScale);
     void resizeWindow(double factor);
     void toggleInfinite();
     void scaleImage(double factor);
 
-    bool infinite;
     QImage image;
     QLabel *imageLabel;
     QScrollArea *scrollArea;
-    double imgScale;
-    QSize resolution;
-    double wScale;
-    double prevWscale;
+
     double imageRatio;
+    QSize resolution;
+    double wSize;
+    bool infinite;
+    double prevWsize;
+    double imgScale;
 
     std::unique_ptr<QLocalServer> server;
     std::unique_ptr<QLocalSocket> client;

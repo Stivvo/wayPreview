@@ -27,12 +27,12 @@ ImageViewer::ImageViewer(QWidget *parent)
     scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
     scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
 
-    wScale = prevWscale = 0.3;
+    wSize = prevWsize = 0.3;
     imgScale = 1;
     infinite = false;
 
     shortcuts();
-    resize(QGuiApplication::primaryScreen()->availableSize() * wScale);
+    resize(QGuiApplication::primaryScreen()->availableSize() * wSize);
 
     server.reset(new QLocalServer(this));
     if (server->listen("wayPreview"))
@@ -64,9 +64,9 @@ void ImageViewer::onNewConnection()
         auto splitC = command.split(" ").toVector();
         int index;
         if (command.contains("quit"))
-            closeDisconnect();
+            quit();
         if ((index = splitC.indexOf("wsize")) != -1)
-            setWscale(splitC[index + 1].toDouble());
+            setWsize(splitC[index + 1].toDouble());
         if ((index = splitC.indexOf("wzoom")) != -1)
             resizeWindow(splitC[index + 1].toDouble());
         if (command.contains("infinite"))
@@ -83,30 +83,30 @@ void ImageViewer::onNewConnection()
 void ImageViewer::toggleInfinite()
 {
     if (infinite)
-        wScale = prevWscale;
+        wSize = prevWsize;
     else {
-        prevWscale = wScale;
-        wScale = 1;
+        prevWsize = wSize;
+        wSize = 1;
     }
 
     infinite = !infinite;
-    setWscale(wScale);
+    setWsize(wSize);
 }
 
-void ImageViewer::setWscale(double newScale)
+void ImageViewer::setWsize(double newScale)
 {
-    wScale = newScale;
-    double height = QGuiApplication::primaryScreen()->availableSize().height() * wScale;
+    wSize = newScale;
+    double height = QGuiApplication::primaryScreen()->availableSize().height() * wSize;
     QSize newSize((double) (height * imageRatio), height);
-    qDebug() << "newsize: " << newSize << ", wScale: " << wScale << ", infinite: " << infinite;
+    qDebug() << "newsize: " << newSize << ", wSize: " << wSize << ", infinite: " << infinite;
     resize(newSize);
 }
 
 void ImageViewer::resizeWindow(double factor)
 {
     qDebug() << "resizeWindow " << factor;
-    wScale *= factor;
-    setWscale(wScale);
+    wSize *= factor;
+    setWsize(wSize);
 }
 
 bool ImageViewer::loadFile(const QString &fileName)
@@ -126,7 +126,7 @@ bool ImageViewer::loadFile(const QString &fileName)
     imageRatio = (double) ((double) resolution.width() / (double) resolution.height());
     qDebug() << "filename: " << fileName << ", resolution: " << resolution
              << " ratio: " << imageRatio;
-    setWscale(wScale);
+    setWsize(wSize);
     return true;
 }
 
@@ -165,7 +165,7 @@ void ImageViewer::fit()
     imageLabel->resize(image.size());
 }
 
-void ImageViewer::closeDisconnect()
+void ImageViewer::quit()
 {
     client->disconnectFromServer();
     server->disconnect();
@@ -175,7 +175,7 @@ void ImageViewer::closeDisconnect()
 void ImageViewer::shortcuts()
 {
     QShortcut *closeCut = new QShortcut(QKeySequence(Qt::Key_Q), this);
-    QObject::connect(closeCut, &QShortcut::activated, this, &ImageViewer::closeDisconnect);
+    QObject::connect(closeCut, &QShortcut::activated, this, &ImageViewer::quit);
 
     QShortcut *normalCut = new QShortcut(QKeySequence(Qt::Key_S), this);
     QObject::connect(normalCut, &QShortcut::activated, this, &ImageViewer::normalSize);
