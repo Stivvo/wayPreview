@@ -107,9 +107,6 @@ Options:
   -h, --help        Displays help on commandline options.
   --help-all        Displays help including Qt specific options.
   --quit            close and disconnect the server
-  --normal          image real size, 1:1 pixel
-  --fit             fit image to window
-  --zoom <factor>   zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)
   --wsize <ratio>   set the <ratio>, between window height and screen height
                     (0.5 uses half of the screen height), 0.3 is default if not
                     set
@@ -117,6 +114,9 @@ Options:
   --infinite        assing the window the max possible size ("tiling" or
                     "fullscreen" mode). If is already set, it will return to
                     "floating" mode, with previous window size
+  --normal          image real size, 1:1 pixel
+  --fit             fit image to window
+  --zoom <factor>   zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)
 
 Arguments:
   [file]            Image file to open
@@ -131,7 +131,7 @@ The order in which the options appear on the menu is the same order in which
 they are applied by the server. The exception is the file opening, which is
 always done as first.
 
-(The lag in the gif is only because of the recording BTW)
+(The gif is lagging just because of the recording)
 
 ## Keyboard shortcuts
 

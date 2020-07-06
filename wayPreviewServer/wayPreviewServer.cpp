@@ -2,19 +2,12 @@
 
 #include <QApplication>
 #include <QColorSpace>
-#include <QDir>
 #include <QImageReader>
-#include <QImageWriter>
 #include <QLabel>
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QMimeData>
-#include <QPainter>
 #include <QScreen>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QShortcut>
-#include <QStandardPaths>
 
 ImageViewer::ImageViewer(QWidget *parent)
     : QMainWindow(parent)
@@ -61,7 +54,6 @@ void ImageViewer::onNewConnection()
         reader.startTransaction();
         reader >> command;
         reader.commitTransaction();
-        qDebug() << "command: " << command;
 
         if (command.contains("|")) {
             auto splitC = command.split("|").toVector();

@@ -1,10 +1,6 @@
 #ifndef IMAGEVIEWER_H
 #define IMAGEVIEWER_H
 
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <utility>
 #include <QImage>
 #include <QLocalServer>
 #include <QLocalSocket>
