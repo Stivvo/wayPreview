@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
     parser.process(QCoreApplication::arguments());
     ImageViewer imageViewer;
     imageViewer.show();
+    imageViewer.startServer();
 
     if (!parser.positionalArguments().isEmpty())
         imageViewer.loadFile(parser.positionalArguments().front());

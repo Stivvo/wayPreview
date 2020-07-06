@@ -33,6 +33,7 @@ private slots:
     void zoomOut();
 
 public:
+    void startServer();
     void setWsize(double newScale);
     void zoomWindow(double factor);
     void toggleInfinite();
