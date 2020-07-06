@@ -24,26 +24,23 @@ class ImageViewer : public QMainWindow
 
 public:
     ImageViewer(QWidget *parent = nullptr);
-    bool loadFile(const QString &);
-    void connection();
-    void closeDisconnect();
 
 private slots:
+    bool loadFile(const QString &);
     void onNewConnection();
-
-public slots:
-    void zoomIn();
-    void zoomOut();
+    void closeDisconnect();
     void normalSize();
     void fit();
+    void zoomIn();
+    void zoomOut();
 
 private:
     void shortcuts();
     void setImage(const QImage &newImage);
-    void scaleImage(double factor);
-    void resizeWindow(double factor);
     void setWscale(double newScale);
+    void resizeWindow(double factor);
     void toggleInfinite();
+    void scaleImage(double factor);
 
     bool infinite;
     QImage image;

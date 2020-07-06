@@ -40,25 +40,19 @@ ImageViewer::ImageViewer(QWidget *parent)
 
     shortcuts();
     resize(QGuiApplication::primaryScreen()->availableSize() * wScale);
-}
 
-void ImageViewer::connection()
-{
     server.reset(new QLocalServer(this));
-
-    if (server->listen("wayPreview")) {
+    if (server->listen("wayPreview"))
         connect(server.get(), &QLocalServer::newConnection, this, &ImageViewer::onNewConnection);
-        qDebug() << "starting server";
-    } else {
-        qDebug() << "NOT " << server->errorString();
-    }
+    else
+        qDebug() << "issues starting server: " << server->errorString();
 }
 
 void ImageViewer::onNewConnection()
 {
     client.reset(server->nextPendingConnection());
-    qDebug() << "starting client: " << client->errorString();
-    qDebug() << "full servername" << client->fullServerName();
+    if (!client->isValid())
+        qDebug() << "client error: " << client->errorString();
 
     connect(client.get(), &QLocalSocket::readyRead, this, [this]() {
         QString command;
@@ -111,10 +105,9 @@ void ImageViewer::setWscale(double newScale)
 {
     wScale = newScale;
     double height = QGuiApplication::primaryScreen()->availableSize().height() * wScale;
-    resize((double) (height * imageRatio), height);
-    qDebug() << "width: " << (double) (height * imageRatio) << " height: " << height
-             << ", resolution: " << resolution << " ratio: " << imageRatio << ", wScale: " << wScale
-             << ", infinite: " << infinite;
+    QSize newSize((double) (height * imageRatio), height);
+    qDebug() << "newsize: " << newSize << ", wScale: " << wScale << ", infinite: " << infinite;
+    resize(newSize);
 }
 
 void ImageViewer::resizeWindow(double factor)
@@ -139,7 +132,8 @@ bool ImageViewer::loadFile(const QString &fileName)
 
     resolution = image.size();
     imageRatio = (double) ((double) resolution.width() / (double) resolution.height());
-
+    qDebug() << "filename: " << fileName << ", resolution: " << resolution
+             << " ratio: " << imageRatio;
     setWscale(wScale);
     return true;
 }

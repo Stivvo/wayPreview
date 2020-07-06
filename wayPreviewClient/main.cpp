@@ -52,9 +52,8 @@ int main(int argc, char *argv[])
 
     QLocalSocket socket;
     socket.connectToServer("wayPreview");
-    qDebug() << socket.errorString();
     if (!socket.isValid()) {
-        qDebug() << "cannot connect";
+        qDebug() << "cannot connect: " << socket.errorString();
         return 1;
     }
 
@@ -63,9 +62,7 @@ int main(int argc, char *argv[])
     writer << msg;
     writer.commitTransaction();
 
-    if (socket.flush())
-        qDebug() << "data was written";
-
+    socket.flush();
     socket.disconnectFromServer();
     socket.disconnect();
     return 0;
