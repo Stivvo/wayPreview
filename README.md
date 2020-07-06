@@ -73,9 +73,14 @@ The installation process will create 4 executables:
 * ``wayPreviewClient`` command line tool to open files and set options
 * ``wayPreviewServer`` the window (always running)
 * ``wrapWayPclient.sh`` appends to wayPreviewClient default options and opens a
-    file passed as argument
-* ``wrapWayPserver.sh`` executes the server, focuses tiling windows and
-    runs wrapWayPclient.sh to view the first image passed as parameter
+    file passed as argument (does its job almost instantly)
+* ``wrapWayPserver.sh`` appends to wayPreviewServer default options and opens a
+    file passed as argument, then focuses tiling windows
+
+My fork of fff works out of the box with wayPreview. However, most terminal file
+managers have a configuration file that can bind keys to shell commands. It's
+better to configure your file manager to use the shell wrappers to separe your
+file manager's config from wayPreview's config.
 
 The command used by ``wrapWayPserver.sh`` to focus tiling windows is sway wm
 specific, but is possible to adapt it to different window managers editing or
@@ -96,9 +101,10 @@ sudo rm /tmp/wayPreview
 
 ## Options
 
-All the options can be found with ``wayPreviewClient --help``. Those options can
-only be set from the client and have effect on the server. They allow to open a
-file, set any number of options, or both.
+All the options can be found with ``wayPreviewClient --help`` or
+``wayPreviewServer --help``. They allow to open a file, set any number of options,
+or both. Options are normally set from the client, but it may be useful to set
+them directly on the server when it is started for the first time.
 
 ```
 Usage: wayPreviewClient [options] [file]
