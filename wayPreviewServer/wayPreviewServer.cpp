@@ -11,8 +11,8 @@
 
 ImageViewer::ImageViewer(QWidget *parent)
     : QMainWindow(parent)
-    , imageLabel(new QLabel)
-    , scrollArea(new QScrollArea)
+    , imageLabel(new QLabel(this))
+    , scrollArea(new QScrollArea(this))
 {
     imageLabel->setBackgroundRole(QPalette::Base);
     imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
