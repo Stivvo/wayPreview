@@ -98,12 +98,12 @@ sudo rm /tmp/wayPreview
 ## Options
 
 All the options can be found with ``wayPreviewClient --help`` or
-``wayPreviewServer --help``. They allow to open a file, set any number of options,
-or both. Options are normally set from the client, but it may be useful to set
-them directly on the server when it is started for the first time.
+``wayPreviewServer --help``. They allow to open a file, set any number of
+options, or both. Options are normally set from the client, but it may be useful
+to set them directly on the server when it is started for the first time.
 
 ```
-Usage: wayPreviewClient [options] [file]
+Usage: wayPreviewServer [options] [file]
 
 Options:
   -h, --help        Displays help on commandline options.
@@ -119,6 +119,10 @@ Options:
   --normal          image real size, 1:1 pixel
   --fit             fit image to window
   --zoom <factor>   zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)
+  --wx <position>   set window horizontal position, wy must also be set for
+                    this option to take effect
+  --wy <position>   set window vertical position, wx must also be set for this
+                    option to take effect
 
 Arguments:
   [file]            Image file to open

@@ -27,7 +27,15 @@ int main(int argc, char *argv[])
          QCommandLineOption("fit", "fit image to window"),
          QCommandLineOption("zoom",
                             "zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)",
-                            "factor")});
+                            "factor"),
+         QCommandLineOption("wx",
+                            "set window horizontal position, wy must also be set for this option "
+                            "to take effect",
+                            "position"),
+         QCommandLineOption(
+             "wy",
+             "set window vertical position, wx must also be set for this option to take effect",
+             "position")});
 
     parser.process(QCoreApplication::arguments());
     QString msg = "";
@@ -48,7 +56,9 @@ int main(int argc, char *argv[])
         msg += " fit";
     if (parser.isSet("zoom") && !parser.value("zoom").isEmpty())
         msg += " zoom " + parser.value("zoom");
-    msg += " ";
+    if (parser.isSet("wx") && !parser.value("wx").isEmpty() && parser.isSet("wy")
+        && !parser.value("wy").isEmpty())
+        msg += " wx " + parser.value("wx") + " wy " + parser.value("wy");
 
     QLocalSocket socket;
     socket.connectToServer("wayPreview");

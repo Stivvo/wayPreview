@@ -33,6 +33,7 @@ ImageViewer::ImageViewer(QWidget *parent)
 
     shortcuts();
     resize(QGuiApplication::primaryScreen()->availableSize() * wSize);
+}
 
 void ImageViewer::startServer()
 {
@@ -64,7 +65,7 @@ void ImageViewer::onNewConnection()
         }
 
         auto splitC = command.split(" ").toVector();
-        int index;
+        int index, index2;
         if (command.contains("quit"))
             quit();
         if ((index = splitC.indexOf("wsize")) != -1)
@@ -79,6 +80,8 @@ void ImageViewer::onNewConnection()
             fit();
         if ((index = splitC.indexOf("zoom")) != -1)
             zoomImage(splitC[index + 1].toDouble());
+        if ((index = splitC.indexOf("wx")) != -1 && (index2 = splitC.indexOf("wy")) != -1)
+            setWpos(splitC[index + 1].toDouble(), splitC[index2 + 1].toDouble());
     });
 }
 
@@ -109,6 +112,13 @@ void ImageViewer::zoomWindow(double factor)
     qDebug() << "zoomWindow " << factor;
     wSize *= factor;
     setWsize(wSize);
+}
+
+void ImageViewer::setWpos(double x, double y)
+{
+    QPoint newPoint(x, y);
+    QMainWindow::move(newPoint);
+    qDebug() << "new position: " << newPoint;
 }
 
 bool ImageViewer::loadFile(const QString &fileName)

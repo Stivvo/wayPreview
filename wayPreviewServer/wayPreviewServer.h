@@ -38,6 +38,7 @@ public:
     void zoomWindow(double factor);
     void toggleInfinite();
     void zoomImage(double factor);
+    void setWpos(double x, double y);
 
 private:
     void shortcuts();

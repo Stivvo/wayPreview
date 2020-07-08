@@ -29,12 +29,19 @@ int main(int argc, char *argv[])
          QCommandLineOption("fit", "fit image to window"),
          QCommandLineOption("zoom",
                             "zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)",
-                            "factor")});
+                            "factor"),
+         QCommandLineOption("wx",
+                            "set window horizontal position, wy must also be set for this option "
+                            "to take effect",
+                            "position"),
+         QCommandLineOption(
+             "wy",
+             "set window vertical position, wx must also be set for this option to take effect",
+             "position")});
 
     parser.process(QCoreApplication::arguments());
     ImageViewer imageViewer;
     imageViewer.show();
-    imageViewer.startServer();
 
     if (!parser.positionalArguments().isEmpty())
         imageViewer.loadFile(parser.positionalArguments().front());
@@ -54,6 +61,10 @@ int main(int argc, char *argv[])
         imageViewer.fit();
     if (parser.isSet("zoom") && !parser.value("zoom").isEmpty())
         imageViewer.zoomImage(parser.value("wzoom").toDouble());
+    if (parser.isSet("wx") && !parser.value("wx").isEmpty() && parser.isSet("wy")
+        && !parser.value("wy").isEmpty())
+        imageViewer.setWpos(parser.value("wx").toDouble(), parser.value("wy").toDouble());
 
+    imageViewer.startServer();
     return app.exec();
 }
