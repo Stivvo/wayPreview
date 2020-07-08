@@ -50,7 +50,7 @@ To unistall:
 ```bash
 cd wayPreview1/wayPreview/scripts/
 chmod +x unistall.sh
-./unistall.sh
+sudo ./unistall.sh
 ```
 
 You may want to make the window always floating: this is how you do that on the
@@ -71,11 +71,16 @@ for_window [app_id="wayPreviewServer"] border none
 The installation process will create 4 executables:
 
 * ``wayPreviewClient`` command line tool to open files and set options
-* ``wayPreviewServer`` the window (always running)
-* ``wrapWayPclient.sh`` appends to wayPreviewClient default options and opens a
-    file passed as argument (does its job almost instantly)
+* ``wayPreviewServer`` the window (always running) ``wrapWayPclient.sh`` appends
+    to wayPreviewClient default options and opens a file passed as argument
+    (does its job almost instantly)
 * ``wrapWayPserver.sh`` appends to wayPreviewServer default options and opens a
     file passed as argument, then focuses tiling windows
+* ``wrapSetPos.sh`` contains window manager specific commands (sway in my case,
+    but you can easily customize it) to set the position of the server window
+    (when using --wx and --wy options, see below), since some window managers
+    ignore the position set from the program itself. It is meant to be used only
+    in floating mode
 
 My fork of fff works out of the box with wayPreview. However, most terminal file
 managers have a configuration file that can bind keys to shell commands. It's

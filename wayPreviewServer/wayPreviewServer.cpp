@@ -118,6 +118,8 @@ void ImageViewer::setWpos(double x, double y)
 {
     QPoint newPoint(x, y);
     QMainWindow::move(newPoint);
+    system(QString("wrapSetPos.sh %1 %2 &").arg(x).arg(y).toLocal8Bit().data());
+
     qDebug() << "new position: " << newPoint;
 }
 
