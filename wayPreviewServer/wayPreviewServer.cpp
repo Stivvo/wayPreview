@@ -169,8 +169,11 @@ void ImageViewer::fit()
 
 void ImageViewer::quit()
 {
-    client->disconnectFromServer();
-    server->disconnect();
+    if (client)
+        client->disconnectFromServer();
+    if (server)
+        server->disconnect();
+
     QWidget::close();
 }
 

@@ -38,8 +38,10 @@ int main(int argc, char *argv[])
 
     if (!parser.positionalArguments().isEmpty())
         imageViewer.loadFile(parser.positionalArguments().front());
-    if (parser.isSet("quit"))
+    if (parser.isSet("quit")) {
         imageViewer.quit();
+        return 0;
+    }
     if (parser.isSet("wsize") && !parser.value("wsize").isEmpty())
         imageViewer.setWsize(parser.value("wsize").toDouble());
     if (parser.isSet("wzoom") && !parser.value("wzoom").isEmpty())
