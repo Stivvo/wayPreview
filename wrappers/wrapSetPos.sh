@@ -1,5 +1,5 @@
 #!/bin/bash
 
-sleep 0.001s
 swaymsg focus floating
-swaymsg move position $1 $2
+swaymsg move position "$1" "$2" 2> /dev/null
+swaymsg focus tiling 2> /dev/null

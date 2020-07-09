@@ -53,19 +53,6 @@ chmod +x unistall.sh
 sudo ./unistall.sh
 ```
 
-You may want to make the window always floating: this is how you do that on the
-sway window manager:
-
-```
-for_window [app_id="wayPreviewServer"] floating enable
-```
-
-You may also want to disable borders:
-
-```
-for_window [app_id="wayPreviewServer"] border none
-```
-
 ## Configuration
 
 The installation process will create 4 executables:
@@ -98,6 +85,25 @@ If for whatever reason something brakes, just delete the socket file:
 
 ```bash
 sudo rm /tmp/wayPreview
+```
+
+You may want to make the window always floating: this is how you do that on the
+sway window manager:
+
+```
+for_window [app_id="wayPreviewServer"] floating enable
+```
+
+You may also want to disable borders:
+
+```
+for_window [app_id="wayPreviewServer"] border none
+```
+
+To set a default position without using --wx and --wy options:
+
+```
+for_window [app_id="wayPreviewServer"] move position 500 50
 ```
 
 ## Options
