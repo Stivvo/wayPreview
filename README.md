@@ -16,10 +16,9 @@ w3m or ueberzug on all file managers and terminal emulators in a completely
 different way, while also adding more features and customisability.
 
 For this reason, wayPreview is a GUI application, written in Qt. It can work
-both as a floating and tiling or full screen window. When used as a floating
-window, it behaves similarly to w3m / ueberzug (like the gif above): the image
-preview occurs on top of the actual terminal window where the file manager is
-running.
+both as a floating and as tiling or full screen window. When used as a floating
+window, it behaves similarly to w3m and (like the gif above): the image preview
+occurs on top of the actual terminal window where the file manager is prunning.
 
 The server is the actual window that displays the image, the client is used to
 send to the server the path of the image to be previewed and other options (like
@@ -72,9 +71,9 @@ The installation process will create 4 executables:
     just focuses tiling without setting the position
 
 My fork of fff works out of the box with wayPreview. However, most terminal file
-managers have a configuration file that can bind keys to shell commands. It's
-better to configure your file manager to use the shell wrappers to separe your
-file manager's config from wayPreview's config.
+managers have a configuration file that allows to bind keys to shell commands.
+It's better to configure your file manager to use the shell wrappers to separe
+your file manager's config from wayPreview's config.
 
 The use of wayPreview isn't necessarily limited to previews for terminal file
 managers though.
@@ -138,7 +137,9 @@ Arguments:
 ```
 
 The ``--infinite`` option is useful when running wayPreviewServer in full screen
-mode, because it sets the window height
+or tiling mode, because it sets the the height of. It should be used together
+with something like ``--fit``. Don't follow the sway commands of the previous
+section if you want to make wayPreviewServer tiling.
 
 The factor is a decimal number that will multiply the related value by itself
 
@@ -146,7 +147,7 @@ The order in which the options appear on the menu is the same order in which
 they are applied by the server. The exception is the file opening, which is
 always done as first.
 
-(The gif is lagging just because of the recording)
+(Lag in the gif is due to the recording)
 
 ## Keyboard shortcuts
 
