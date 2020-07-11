@@ -116,11 +116,16 @@ void ImageViewer::zoomWindow(double factor)
 
 void ImageViewer::setWpos(double x, double y)
 {
-    QPoint newPoint(x, y);
-    QMainWindow::move(newPoint);
-    system(QString("wrapSetPos.sh %1 %2 &").arg(x).arg(y).toLocal8Bit().data());
+    if (x == -1 || y == -1) {
+        system(QString("wrapSetPos.sh \"-1\" \"-1\" 2> /dev/null &").toLocal8Bit().data());
+        qDebug() << "just focusing tiling";
+    } else {
+        QPoint newPoint(x, y);
+        QMainWindow::move(newPoint);
 
-    qDebug() << "new position: " << newPoint;
+        system(QString("wrapSetPos.sh %1 %2 2> /dev/null &").arg(x).arg(y).toLocal8Bit().data());
+        qDebug() << "new position: " << newPoint;
+    }
 }
 
 bool ImageViewer::loadFile(const QString &fileName)

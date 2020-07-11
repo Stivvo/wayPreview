@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
     parser.process(QCoreApplication::arguments());
     ImageViewer imageViewer;
     imageViewer.show();
+    imageViewer.startServer();
 
     if (!parser.positionalArguments().isEmpty())
         imageViewer.loadFile(parser.positionalArguments().front());
@@ -64,7 +65,8 @@ int main(int argc, char *argv[])
     if (parser.isSet("wx") && !parser.value("wx").isEmpty() && parser.isSet("wy")
         && !parser.value("wy").isEmpty())
         imageViewer.setWpos(parser.value("wx").toDouble(), parser.value("wy").toDouble());
+    else
+        imageViewer.setWpos(-1, -1);
 
-    imageViewer.startServer();
     return app.exec();
 }

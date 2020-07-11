@@ -62,21 +62,19 @@ The installation process will create 4 executables:
     to wayPreviewClient default options and opens a file passed as argument
     (does its job almost instantly)
 * ``wrapWayPserver.sh`` appends to wayPreviewServer default options and opens a
-    file passed as argument, then focuses tiling windows
+    file passed as argument
 * ``wrapSetPos.sh`` contains window manager specific commands (sway in my case,
     but you can easily customize it) to set the position of the server window
-    (when using --wx and --wy options, see below), since some window managers
-    ignore the position set from the program itself. It is meant to be used only
-    in floating mode
+    (when using --wx and --wy options, see below) and then focus tiling windows,
+    since some window managers ignore the position set from the program itself.
+    It is meant to be used only in floating mode. If --wx and --wy aren't set to
+    wayPreviewServer, it is implicitly runned with -1 -1 as parameters, so it
+    just focuses tiling without setting the position
 
 My fork of fff works out of the box with wayPreview. However, most terminal file
 managers have a configuration file that can bind keys to shell commands. It's
 better to configure your file manager to use the shell wrappers to separe your
 file manager's config from wayPreview's config.
-
-The command used by ``wrapWayPserver.sh`` to focus tiling windows is sway wm
-specific, but is possible to adapt it to different window managers editing or
-deliting its last line.
 
 The use of wayPreview isn't necessarily limited to previews for terminal file
 managers though.
