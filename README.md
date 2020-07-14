@@ -84,6 +84,10 @@ If for whatever reason something brakes, just delete the socket file:
 sudo rm /tmp/wayPreview
 ```
 
+``install.sh`` will install the wrapper scripts in ``/usr/bin`` but in case of
+multimple users it may be better to move them to something like ``~/.local`` and
+add that directory to the user ``$PATH``.
+
 You may want to make the window always floating: this is how you do that on the
 sway window manager:
 
