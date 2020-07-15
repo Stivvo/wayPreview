@@ -29,9 +29,7 @@ file manager and the [sway](https://github.com/swaywm/sway) window manager.
 
 ## Compile, install
 
-Requires qt base, widgets and network. I encourage to look at
-[install.sh](scripts/install.sh) and [unistall.sh](scripts/unistall.sh) before
-running them.
+For compiling, qt base, widgets and network are required.
 
 ```bash
 mkdir wayPreview1
@@ -40,11 +38,27 @@ git clone https://github.com/Stivvo/wayPreview
 cd scripts
 chmod +x compile.sh
 ./compile.sh
-chmod +x install.sh
-sudo ./install.sh
 ```
 
-To unistall:
+To install you can manually add ``../../clientBuild/wayPreviewClient``,
+``../../serverBuild/wayPreviewServer`` and all the scripts in the
+[config](config) directory to your path.
+
+However, in case of multiple users on the system or for a simpler install
+process just run:
+
+```bash
+chmod +x install.sh
+sudo ./install.sh
+chmod +x installConfig.sh
+./installConfig.sh
+```
+
+The last command will show you where the configuration scripts are located,
+that's where you can set default options and configure wayPreview for your
+window manager. Run ``installConfig.sh`` for each user.
+
+To uninstall:
 
 ```bash
 cd wayPreview1/wayPreview/scripts/
@@ -52,23 +66,30 @@ chmod +x unistall.sh
 sudo ./unistall.sh
 ```
 
+I encourage to look at [install.sh](scripts/install.sh) and
+[unistall.sh](scripts/unistall.sh) before running them.
+
+To unistall:
+
 ## Configuration
 
 The installation process will create 4 executables:
 
-* ``wayPreviewClient`` command line tool to open files and set options
-* ``wayPreviewServer`` the window (always running) ``wrapWayPclient.sh`` appends
-    to wayPreviewClient default options and opens a file passed as argument
-    (does its job almost instantly)
-* ``wrapWayPserver.sh`` appends to wayPreviewServer default options and opens a
-    file passed as argument
+* ``wayPreviewClient`` command line tool to open files and set options (runs
+    instantly)
+* ``wayPreviewServer`` the window (always running)
+* ``config/wrapWayPclient.sh`` and ``config/wrapWayPserver.sh`` append to the
+    client and to the server respectively default options and open a file passed
+    as argument. Keep in mind that the server wrapper will run just for the
+    first time, then only use the client wrapper until you close the server.
+* ``wrappers/*.sh`` just run the ``config/*.sh`` wrappers for the current user.
 * ``wrapSetPos.sh`` contains window manager specific commands (sway in my case,
     but you can easily customize it) to set the position of the server window
     (when using --wx and --wy options, see below) and then focus tiling windows,
     since some window managers ignore the position set from the program itself.
     It is meant to be used only in floating mode. If --wx and --wy aren't set to
-    wayPreviewServer, it is implicitly runned with -1 -1 as parameters, so it
-    just focuses tiling without setting the position
+    wayPreviewServer, it is implicitly run with -1 -1 as parameters, so it just
+    focuses tiling without setting the position
 
 My fork of fff works out of the box with wayPreview. However, most terminal file
 managers have a configuration file that allows to bind keys to shell commands.
