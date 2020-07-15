@@ -66,10 +66,10 @@ chmod +x unistall.sh
 sudo ./unistall.sh
 ```
 
+And delete the config files for each user.
+
 I encourage to look at [install.sh](scripts/install.sh) and
 [unistall.sh](scripts/unistall.sh) before running them.
-
-To unistall:
 
 ## Configuration
 
