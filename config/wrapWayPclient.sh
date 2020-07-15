@@ -1,5 +1,3 @@
 #!/bin/bash
 
-# start the client with default options
-
-wayPreviewClient "$1" --fit --wsize 0.5
+${XDG_CONFIG_HOME:=${HOME}/.config}/wayPreview/./wrapWayPclient.sh "$@"

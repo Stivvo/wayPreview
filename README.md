@@ -58,6 +58,10 @@ The last command will show you where the configuration scripts are located,
 that's where you can set default options and configure wayPreview for your
 window manager. Run ``installConfig.sh`` for each user.
 
+Alternatively it's possible to copy the default configurations created in
+``/etc/wayPreview`` by ``install.sh`` to ``$XDG_CONFIG_HOME/wayPreview`` for each
+user.
+
 To uninstall:
 
 ```bash
