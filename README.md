@@ -66,14 +66,14 @@ To uninstall:
 
 ```bash
 cd wayPreview1/wayPreview/scripts/
-chmod +x unistall.sh
-sudo ./unistall.sh
+chmod +x uninstall.sh.sh
+sudo ./uninstall.sh.sh
 ```
 
 And delete the config files for each user.
 
 I encourage to look at [install.sh](scripts/install.sh) and
-[unistall.sh](scripts/unistall.sh) before running them.
+[uninstall.sh.sh](scripts/uninstall.sh.sh) before running them.
 
 ## Configuration
 
