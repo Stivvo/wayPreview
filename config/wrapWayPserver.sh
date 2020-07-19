@@ -1,3 +1,3 @@
 #!/bin/bash
 
-${XDG_CONFIG_HOME:=${HOME}/.config}/wayPreview/./wrapSetPos.sh "$@"
+ wayPreviewServer "$1" --fit --wsize 0.5
