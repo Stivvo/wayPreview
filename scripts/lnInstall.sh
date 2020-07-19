@@ -14,7 +14,7 @@ WAYPCONF="${XDG_CONFIG_HOME:=${HOME}/.config}/wayPreview/"
 mkdir -p $WAYPCONF
 echo "config dir: $WAYPCONF"
 
-ln -sf "${PWD}/../config/serverConf.sh" "${WAYPCONF}serverConf.sh"
-ln -sf "${PWD}/../config/clientConf.sh" "${WAYPCONF}clientConf.sh"
-ln -sf "${PWD}/../config/setPosConf.sh" "${WAYPCONF}setPosConf.sh"
+ln -sf "${PWD}/../config/wrapWayPclient.sh" "${WAYPCONF}wrapWayPclient.sh"
+ln -sf "${PWD}/../config/wrapWayPserver.sh" "${WAYPCONF}wrapWayPserver.sh"
+ln -sf "${PWD}/../config/wrapSetPos.sh" "${WAYPCONF}wrapSetPos.sh"
 
