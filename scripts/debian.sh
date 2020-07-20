@@ -24,7 +24,7 @@ cp ../wayPreview/README.md usr/share/doc/wayPreview/README.md
 # debian stff
 mkdir DEBIAN
 echo "Package: wayPreview" > DEBIAN/control
-echo "Version: $1" >> DEBIAN/control
+echo "Version: $2" >> DEBIAN/control
 echo "Section: custom" >> DEBIAN/control
 echo "Priority: optional" >> DEBIAN/control
 echo "Architecture: all" >> DEBIAN/control

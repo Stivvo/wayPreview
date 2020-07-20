@@ -2,7 +2,7 @@
 
 [ -z "$1" ] && echo "please provide a version tag" && exit
 
-RELEASEDIR="wayPreview_$1"
+RELEASEDIR="wayPreview_universal_$1"
 
 # creating package dir
 mkdir "../../$RELEASEDIR"
@@ -35,4 +35,6 @@ echo "cd wayPreview/scripts/" >> installConfig.sh
 echo "./installConfig.sh" >> installConfig.sh
 
 cd ..
+rm "${RELEASEDIR}.zip"
 zip -r "${RELEASEDIR}.zip" "$RELEASEDIR"
+echo "universal package created: ${RELEASEDIR}.zip"
