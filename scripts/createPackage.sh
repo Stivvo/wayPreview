@@ -36,4 +36,3 @@ echo "./installConfig.sh" >> installConfig.sh
 
 cd ..
 zip -r "${RELEASEDIR}.zip" "$RELEASEDIR"
-
