@@ -2,9 +2,11 @@
 
 [ -z "$1" ] && echo "please provide a version tag" && exit
 
+RELEASEDIR="wayPreview_$1"
+
 # creating package dir
-mkdir "../../$1"
-cd "../../$1"
+mkdir "../../$RELEASEDIR"
+cd "../../$RELEASEDIR"
 
 # copying binaries
 mkdir clientBuild serverBuild
@@ -31,3 +33,7 @@ echo "./install.sh" >> install.sh
 echo "#!/bin/bash" > installConfig.sh
 echo "cd wayPreview/scripts/" >> installConfig.sh
 echo "./installConfig.sh" >> installConfig.sh
+
+cd ..
+zip -r "${RELEASEDIR}.zip" "$RELEASEDIR"
+
