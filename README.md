@@ -29,7 +29,8 @@ file manager and the [sway](https://github.com/swaywm/sway) window manager.
 
 ## Compile, install
 
-For compiling, qt base, widgets and network are required.
+For compiling qt base, network, widgets and webengine are required. Qt must
+version must be at least 5.14.
 
 ```bash
 mkdir wayPreview1
