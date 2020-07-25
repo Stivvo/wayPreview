@@ -10,10 +10,9 @@ install -Dm755 "${PWD}/../wrappers/wrapWayPserver.sh" /usr/bin/wrapWayPserver.sh
 install -Dm755 "${PWD}/../wrappers/wrapSetPos.sh" /usr/bin/wrapSetPos.sh
 
 # default configs
-mkdir /etc/wayPreview
-cp "${PWD}/../config/wrapWayPclient.sh" /etc/wayPreview/wrapWayPclient.sh
-cp "${PWD}/../config/wrapWayPserver.sh" /etc/wayPreview/wrapWayPserver.sh
-cp "${PWD}/../config/wrapSetPos.sh" /etc/wayPreview/wrapSetPos.sh
+install -Dm755 "${PWD}/../config/wrapWayPclient.sh" /etc/wayPreview/wrapWayPclient.sh
+install -Dm755 "${PWD}/../config/wrapWayPserver.sh" /etc/wayPreview/wrapWayPserver.sh
+install -Dm755 "${PWD}/../config/wrapSetPos.sh" /etc/wayPreview/wrapSetPos.sh
 echo "default configuration scripts installed to /etc/wayPreview"
 
 # documentation
