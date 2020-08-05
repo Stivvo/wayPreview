@@ -65,15 +65,21 @@ user.
 To uninstall:
 
 ```bash
-cd wayPreview1/wayPreview/scripts/
-chmod +x uninstall.sh.sh
-sudo ./uninstall.sh.sh
+chmod +x uninstall.sh
+sudo ./uninstall.sh
 ```
 
-And delete the config files for each user.
+Then, and delete the config files for each user.
 
 I encourage to look at [install.sh](scripts/install.sh) and
 [uninstall.sh.sh](scripts/uninstall.sh.sh) before running them.
+
+To install symbolic links for development:
+
+```bash
+sudo ./install.sh link program
+./install.sh link config
+```
 
 ## Configuration
 
