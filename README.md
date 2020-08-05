@@ -50,14 +50,13 @@ process just run:
 
 ```bash
 chmod +x install.sh
-sudo ./install.sh
-chmod +x installConfig.sh
-./installConfig.sh
+sudo ./install.sh install program
+./install.sh install config
 ```
 
-The last command will show you where the configuration scripts are located,
+The last command will show you where the user configuration scripts are located,
 that's where you can set default options and configure wayPreview for your
-window manager. Run ``installConfig.sh`` for each user.
+window manager. Run ``install.sh install config`` for each user.
 
 Alternatively it's possible to copy the default configurations created in
 ``/etc/wayPreview`` by ``install.sh`` to ``$XDG_CONFIG_HOME/wayPreview`` for each
