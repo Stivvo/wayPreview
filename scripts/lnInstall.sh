@@ -1,14 +1,24 @@
 #!/bin/bash
 
-chmod +x "${PWD}/../wrappers/wrapWayPclient.sh"
-chmod +x "${PWD}/../wrappers/wrapWayPserver.sh"
-chmod +x "${PWD}/../wrappers/wrapSetPos.sh"
+# binaries
+ln -sf "${pwd}/../../clientbuild/waypreviewclient" /usr/bin/waypreviewclient
+ln -sf "${pwd}/../../serverbuild/waypreviewserver" /usr/bin/waypreviewserver
 
-ln -sf "${PWD}/../../clientBuild/wayPreviewClient" /usr/bin/wayPreviewClient
-ln -sf "${PWD}/../../serverBuild/wayPreviewServer" /usr/bin/wayPreviewServer
+# wrappers
 ln -sf "${PWD}/../wrappers/wrapWayPclient.sh" /usr/bin/wrapWayPclient.sh
 ln -sf "${PWD}/../wrappers/wrapWayPserver.sh" /usr/bin/wrapWayPserver.sh
 ln -sf "${PWD}/../wrappers/wrapSetPos.sh" /usr/bin/wrapSetPos.sh
+
+# default configs
+mkdir /etc/wayPreview
+ln -sf "${PWD}/../config/wrapWayPclient.sh" /etc/wayPreview/wrapWayPclient.sh
+ln -sf "${PWD}/../config/wrapWayPserver.sh" /etc/wayPreview/wrapWayPserver.sh
+ln -sf "${PWD}/../config/wrapSetPos.sh" /etc/wayPreview/wrapSetPos.sh
+echo "default configuration scripts installed to /etc/wayPreview"
+
+# documentation
+mkdir -p /usr/share/doc/wayPreview
+ln -sf "${PWD}/../README.md" /usr/share/doc/wayPreview/README.md
 
 WAYPCONF="${XDG_CONFIG_HOME:=${HOME}/.config}/wayPreview/"
 mkdir -p $WAYPCONF

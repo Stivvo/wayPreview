@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# executables
+# binaries
 install -Dm755 "${PWD}/../../clientBuild/wayPreviewClient" /usr/bin/wayPreviewClient
 install -Dm755 "${PWD}/../../serverBuild/wayPreviewServer" /usr/bin/wayPreviewServer
 
