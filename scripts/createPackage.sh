@@ -27,12 +27,12 @@ cp ../wayPreview/README.md wayPreview/README.md
 # creating install.sh that runs wayPreview/scripts/install.sh
 echo "#!/bin/bash" > install.sh
 echo "cd wayPreview/scripts/" >> install.sh
-echo "./install.sh" >> install.sh
+echo "./install.sh install program" >> install.sh
 
 # creating installConfig.sh that runs wayPreview/scripts/installConfig.sh
 echo "#!/bin/bash" > installConfig.sh
 echo "cd wayPreview/scripts/" >> installConfig.sh
-echo "./installConfig.sh" >> installConfig.sh
+echo "./install.sh install config" >> installConfig.sh
 
 cd ..
 rm "${RELEASEDIR}.zip"

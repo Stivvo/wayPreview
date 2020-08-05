@@ -81,6 +81,14 @@ sudo ./install.sh link program
 ./install.sh link config
 ```
 
+To install from universal package (after unzipping):
+
+```bash
+chmod +x install.sh installConfig.sh
+sudo ./install.sh
+./installConfig.sh
+```
+
 ## Configuration
 
 The installation process will create 4 executables:
