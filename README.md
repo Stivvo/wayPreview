@@ -37,7 +37,7 @@ mkdir wayPreview1
 cd wayPreview1
 git clone https://github.com/Stivvo/wayPreview
 cd scripts
-chmod +x compile.sh
+chmod +x compile.sh install.sh uninstall.sh
 ./compile.sh
 ```
 
@@ -49,7 +49,6 @@ However, in case of multiple users on the system or for a simpler install
 process just run:
 
 ```bash
-chmod +x install.sh
 sudo ./install.sh install program
 ./install.sh install config
 ```
@@ -65,14 +64,13 @@ user.
 To uninstall:
 
 ```bash
-chmod +x uninstall.sh
 sudo ./uninstall.sh
 ```
 
 Then, and delete the config files for each user.
 
 I encourage to look at [install.sh](scripts/install.sh) and
-[uninstall.sh.sh](scripts/uninstall.sh.sh) before running them.
+[uninstall.sh](scripts/uninstall.sh) before running them.
 
 To install symbolic links for development:
 
