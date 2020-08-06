@@ -94,22 +94,19 @@ The installation process will create 4 executables:
 * ``wayPreviewClient`` command line tool to open files and set options (runs
     instantly)
 * ``wayPreviewServer`` the window (always running)
-* ``config/wrapWayPclient.sh`` and ``config/wrapWayPserver.sh`` append to the
-    client and to the server respectively default options and open a file passed
-    as argument. Keep in mind that the server wrapper will run just for the
-    first time, then only use the client wrapper until you close the server.
-* ``wrappers/*.sh`` just run the ``config/*.sh`` wrappers for the current user.
-* ``wrapSetPos.sh`` contains window manager specific commands (sway in my case,
-    but you can easily customize it) to set the position of the server window
-    (when using --wx and --wy options, see below) and then focus tiling windows,
-    since some window managers ignore the position set from the program itself.
-    It is meant to be used only in floating mode. If --wx and --wy aren't set to
-    wayPreviewServer, it is implicitly run with -1 -1 as parameters, so it just
-    focuses tiling without setting the position
+* ``config/wrapWayP*.sh`` append to the client and to the server respectively
+    default options and open a file passed as argument. Keep in mind that the
+    server wrapper will run just for the first time.
+* ``config/wrapSetPos.sh`` contains window manager specific commands (some
+    window managers ignore the position set from the application itself) to set
+    the position of the server window, if ``--wx`` and ``--wy`` options are
+    provided to wayPreviewServer, and focus tiling windows. It is meant to be
+    used only in floating mode.
+* ``wrappers/*.sh`` just run the matching ``config/*.sh`` for the current user.
 
 My fork of fff works out of the box with wayPreview. However, most terminal file
 managers have a configuration file that allows to bind keys to shell commands.
-It's better to configure your file manager to use the shell wrappers to separe
+It's better to configure your file manager to use the shell wrappers to isolate
 your file manager's config from wayPreview's config.
 
 The use of wayPreview isn't necessarily limited to previews for terminal file
@@ -120,10 +117,6 @@ If for whatever reason something brakes, just delete the socket file:
 ```bash
 sudo rm /tmp/wayPreview
 ```
-
-``install.sh`` will install the wrapper scripts in ``/usr/bin`` but in case of
-multimple users it may be better to move them to something like ``~/.local`` and
-add that directory to the user ``$PATH``.
 
 You may want to make the window always floating: this is how you do that on the
 sway window manager:
@@ -138,7 +131,7 @@ You may also want to disable borders:
 for_window [app_id="wayPreviewServer"] border none
 ```
 
-To set a default position without using --wx and --wy options:
+To set a default position without using ``--wx`` and ``--wy`` options:
 
 ```
 for_window [app_id="wayPreviewServer"] move position 500 50
@@ -168,10 +161,12 @@ Options:
   --normal          image real size, 1:1 pixel
   --fit             fit image to window
   --zoom <factor>   zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)
-  --wx <position>   set window horizontal position, wy must also be set for
-                    this option to take effect
-  --wy <position>   set window vertical position, wx must also be set for this
-                    option to take effect
+  --wx <position>   set window horizontal position in floating mode, wy must
+                    also be set for this option to take effect. If it isn't set,
+                    the window manager will decide the position
+  --wy <position>   set window vertical position in floating mode, wx must also
+                    be set for this option to take effect. If it isn't set, the
+                    window manager will decide the position
 
 Arguments:
   [file]            Image file to open

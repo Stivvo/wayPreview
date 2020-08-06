@@ -30,14 +30,16 @@ int main(int argc, char *argv[])
          QCommandLineOption("zoom",
                             "zoom the image by a <factor> (< 1 zoomin, > 1 zoomout)",
                             "factor"),
-         QCommandLineOption("wx",
-                            "set window horizontal position, wy must also be set for this option "
-                            "to take effect",
-                            "position"),
          QCommandLineOption(
-             "wy",
-             "set window vertical position, wx must also be set for this option to take effect",
-             "position")});
+             "wx",
+             "set window horizontal position in floating mode, wy must also be set for this option "
+             "to take effect. If it isn't set, the window manager will decide the position",
+             "position"),
+         QCommandLineOption("wy",
+                            "set window vertical position in floating mode, wx must also be set "
+                            "for this option to take effect. If it isn't set, the window manager "
+                            "will decide the position",
+                            "position")});
 
     parser.process(QCoreApplication::arguments());
     ImageViewer imageViewer;
