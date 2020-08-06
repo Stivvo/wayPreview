@@ -3,7 +3,7 @@ height="260" align="right" style="margin-left: 1px; margin-bottom: 1px;"/>
 
 # wayPreview
 
-A client server, wayland native, terminal emulator independent image previewer
+A client server, wayland native, terminal emulator independent image previewer.
 
 ## Introduction
 
@@ -16,9 +16,9 @@ w3m or ueberzug on all file managers and terminal emulators in a completely
 different way, while also adding more features and customisability.
 
 For this reason, wayPreview is a GUI application, written in Qt. It can work
-both as a floating and as tiling or full screen window. When used as a floating
-window, it behaves similarly to w3m and (like the gif above): the image preview
-occurs on top of the actual terminal window where the file manager is prunning.
+both as a floating and as tiling/fullscreen window. When used as a floating
+window, it behaves similarly to w3m (like in the gif above): the image preview
+occurs on top of the actual terminal window where the file manager is running.
 
 The server is the actual window that displays the image, the client is used to
 send to the server the path of the image to be previewed and other options (like
@@ -27,10 +27,13 @@ the zoom) through a local (UNIX) socket.
 Works out of the box with [my fork](https://github.com/Stivvo/fff) of the FFF
 file manager and the [sway](https://github.com/swaywm/sway) window manager.
 
-## Compile, install
+## Installation
 
-For compiling qt base, network, widgets and webengine are required. Qt must
-version must be at least 5.14.
+To run only ``qt5-base`` (Archlinux) or ``qt5-default`` (Debian) is required.
+
+### Compile
+
+To compile, Qt version must be at least 5.14.
 
 ```bash
 mkdir wayPreview1
@@ -41,7 +44,9 @@ chmod +x compile.sh install.sh uninstall.sh
 ./compile.sh
 ```
 
-To install you can manually add ``../../clientBuild/wayPreviewClient``,
+### Install
+
+Manually add ``../../clientBuild/wayPreviewClient``,
 ``../../serverBuild/wayPreviewServer`` and all the scripts in the
 [config](config) directory to your path.
 
@@ -53,24 +58,26 @@ sudo ./install.sh install program
 ./install.sh install config
 ```
 
-The last command will show you where the user configuration scripts are located,
-that's where you can set default options and configure wayPreview for your
-window manager. Run ``install.sh install config`` for each user.
+The second command will show where the configuration scripts are located, that's
+where you can set default options and configure wayPreview for your window
+manager. Run it for each user.
 
 Alternatively it's possible to copy the default configurations created in
-``/etc/wayPreview`` by ``install.sh`` to ``$XDG_CONFIG_HOME/wayPreview`` for each
-user.
+``/etc/wayPreview`` by ``install.sh`` to ``$XDG_CONFIG_HOME/wayPreview`` for
+each user.
 
-To uninstall:
+### Uninstall
 
 ```bash
 sudo ./uninstall.sh
 ```
 
-Then, and delete the config files for each user.
+Then, delete the config files for each user.
 
 I encourage to look at [install.sh](scripts/install.sh) and
 [uninstall.sh](scripts/uninstall.sh) before running them.
+
+### Development
 
 To install symbolic links for development:
 
@@ -79,9 +86,14 @@ sudo ./install.sh link program
 ./install.sh link config
 ```
 
-To install from universal package (after unzipping):
+### Universal package
+
+Go to [releases](https://github.com/Stivvo/wayPreview/releases), download the
+universal package (or create your own with ``./createPackage.sh``), then:
 
 ```bash
+unzip wayPreview_universal_v1.1.zip
+cd wayPreview_universal_v1.1
 chmod +x install.sh installConfig.sh
 sudo ./install.sh
 ./installConfig.sh
