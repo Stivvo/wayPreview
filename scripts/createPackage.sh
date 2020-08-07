@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [ -z "$1" ] && echo "please provide a version tag" && exit
 
@@ -25,12 +25,12 @@ cp -r ../wayPreview/wrappers wayPreview/
 cp ../wayPreview/README.md wayPreview/README.md
 
 # creating install.sh that runs wayPreview/scripts/install.sh
-echo "#!/bin/bash" > install.sh
+echo "#!/bin/sh" > install.sh
 echo "cd wayPreview/scripts/" >> install.sh
 echo "./install.sh install program" >> install.sh
 
 # creating installConfig.sh that runs wayPreview/scripts/installConfig.sh
-echo "#!/bin/bash" > installConfig.sh
+echo "#!/bin/sh" > installConfig.sh
 echo "cd wayPreview/scripts/" >> installConfig.sh
 echo "./install.sh install config" >> installConfig.sh
 

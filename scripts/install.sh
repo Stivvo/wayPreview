@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 case $1 in
 "install")
@@ -46,7 +46,7 @@ case $2 in
 
 "config")
     WAYPCONF="${XDG_CONFIG_HOME:=${HOME}/.config}/wayPreview/"
-    mkdir -p $WAYPCONF
+    mkdir -p "$WAYPCONF"
 
     $CBIN "${PWD}/../config/wrapWayPclient.sh" "${WAYPCONF}wrapWayPclient.sh"
     $CBIN "${PWD}/../config/wrapWayPserver.sh" "${WAYPCONF}wrapWayPserver.sh"

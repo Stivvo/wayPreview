@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-wayPreviewServer "$1" --fit --wsize 0.5
+wayPreviewServer "$@" --fit --wsize 0.5

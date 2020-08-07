@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [ -z "$1" ] && echo "please provide a version tag" && exit
 [ -z "$2" ] && echo "please provide a version number" && exit

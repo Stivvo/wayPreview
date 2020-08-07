@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 rm /usr/bin/wayPreviewClient
 rm /usr/bin/wayPreviewServer

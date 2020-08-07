@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-wayPreviewClient "$1" --fit --wsize 0.5
+wayPreviewClient "$@" --fit --wsize 0.5
