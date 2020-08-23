@@ -63,7 +63,8 @@ use the wrappers. Backup wrappers are stored in ``/usr/local/etc/wayPreview``
 ### Uninstall
 
 ```bash
-sudo ./uninstall.sh
+sudo ./uninstall.sh program
+./uninstall.sh config
 ```
 
 Run the last command for each user. I encourage to look at
