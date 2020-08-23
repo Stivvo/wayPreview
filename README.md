@@ -47,7 +47,7 @@ cd scripts
 
 Manually add ``../../clientBuild/wayPreviewClient``,
 ``../../serverBuild/wayPreviewServer`` and all the scripts in the
-[config](config) directory to your path.
+[wrappers](wrappers) directory to your path.
 
 However, in case of multiple users on the system or for a simpler install
 process just run:
@@ -57,11 +57,8 @@ sudo ./install.sh install program
 ./install.sh install config
 ```
 
-The second command will show where the configuration scripts are located, that's
-where you can set default options and configure wayPreview for your window
-manager: run it for each user. Alternatively, it's possible to copy the default
-configurations created in ``/etc/wayPreview`` and add them to the path for each
-user.
+Run the second commands for each user and add ``~/.local/bin`` to their path to
+use the wrappers. Backup wrappers are stored in ``/etc/wayPreview``
 
 ### Uninstall
 
@@ -69,10 +66,9 @@ user.
 sudo ./uninstall.sh
 ```
 
-Then, delete the config files for each user.
-
-I encourage to look at [install.sh](scripts/install.sh) and
-[uninstall.sh](scripts/uninstall.sh) before running them.
+Run the last command for each user. I encourage to look at
+[install.sh](scripts/install.sh) and [uninstall.sh](scripts/uninstall.sh) before
+running them.
 
 ### Development
 
@@ -102,10 +98,10 @@ The installation process will create 4 executables:
 * ``wayPreviewClient`` command line tool to open files and set options (runs
     instantly)
 * ``wayPreviewServer`` the window (always running)
-* ``config/wrapWayP*.sh`` append to the client and to the server respectively
+* ``wrappers/wrapWayP*.sh`` run append the client or to the server with
     default options and open a file passed as argument. Keep in mind that the
     server wrapper will run just for the first time.
-* ``config/wrapSetPos.sh`` contains window manager specific commands (some
+* ``wrappers/wrapSetPos.sh`` contains window manager specific commands (some
     window managers ignore the position set from the application itself) to set
     the position of the server window, if ``--wx`` and ``--wy`` options are
     provided to wayPreviewServer, and focus tiling windows. It is meant to be
@@ -113,8 +109,8 @@ The installation process will create 4 executables:
 
 My fork of fff works out of the box with wayPreview. However, most terminal file
 managers have a configuration file that allows to bind keys to shell commands.
-It's better to configure your file manager to use the shell wrappers to isolate
-your file manager's config from wayPreview's config.
+It's better to configure your file manager to run the shell wrappers to isolate
+the configuration of wayPreview.
 
 The use of wayPreview isn't necessarily limited to previews for terminal file
 managers though.
@@ -181,7 +177,6 @@ Options:
 
 Arguments:
   [file]            Image file to open
-
 ```
 
 The ``--infinite`` option is useful when running wayPreviewServer in full screen
