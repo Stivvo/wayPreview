@@ -10,7 +10,7 @@ case $1 in
 "link")
     IBIN="ln -sf"
     IDOC="ln -sf"
-    CBIN="ls -sf"
+    CBIN="ln -sf"
 ;;
 
 *)

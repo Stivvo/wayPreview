@@ -40,7 +40,6 @@ mkdir wayPreview1
 cd wayPreview1
 git clone https://github.com/Stivvo/wayPreview
 cd scripts
-chmod +x compile.sh install.sh uninstall.sh
 ./compile.sh
 ```
 
@@ -94,7 +93,6 @@ universal package (or create your own with ``./createPackage.sh``), then:
 ```bash
 unzip wayPreview_universal_v1.1.zip
 cd wayPreview_universal_v1.1
-chmod +x install.sh installConfig.sh
 sudo ./install.sh
 ./installConfig.sh
 ```
