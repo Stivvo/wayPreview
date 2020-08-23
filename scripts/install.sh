@@ -25,12 +25,6 @@ case $2 in
     $IBIN "${PWD}/../../clientBuild/wayPreviewClient" /usr/bin/wayPreviewClient
     $IBIN "${PWD}/../../serverBuild/wayPreviewServer" /usr/bin/wayPreviewServer
 
-    # wrappers
-    $IBIN "${PWD}/../wrappers/wrapWayPclient.sh" /usr/bin/wrapWayPclient.sh
-    $IBIN "${PWD}/../wrappers/wrapWayPserver.sh" /usr/bin/wrapWayPserver.sh
-    $IBIN "${PWD}/../wrappers/wrapSetPos.sh" /usr/bin/wrapSetPos.sh
-    echo "binaries and wrappers installed to /usr/bin"
-
     # default configs
     mkdir /etc/wayPreview
     $IBIN "${PWD}/../config/wrapWayPclient.sh" /etc/wayPreview/wrapWayPclient.sh
@@ -45,7 +39,7 @@ case $2 in
 ;;
 
 "config")
-    WAYPCONF="${XDG_CONFIG_HOME:=${HOME}/.config}/wayPreview/"
+    WAYPCONF="$HOME/.local/bin/"
     mkdir -p "$WAYPCONF"
 
     $CBIN "${PWD}/../config/wrapWayPclient.sh" "${WAYPCONF}wrapWayPclient.sh"

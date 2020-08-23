@@ -59,11 +59,9 @@ sudo ./install.sh install program
 
 The second command will show where the configuration scripts are located, that's
 where you can set default options and configure wayPreview for your window
-manager. Run it for each user.
-
-Alternatively it's possible to copy the default configurations created in
-``/etc/wayPreview`` by ``install.sh`` to ``$XDG_CONFIG_HOME/wayPreview`` for
-each user.
+manager: run it for each user. Alternatively, it's possible to copy the default
+configurations created in ``/etc/wayPreview`` and add them to the path for each
+user.
 
 ### Uninstall
 
@@ -112,7 +110,6 @@ The installation process will create 4 executables:
     the position of the server window, if ``--wx`` and ``--wy`` options are
     provided to wayPreviewServer, and focus tiling windows. It is meant to be
     used only in floating mode.
-* ``wrappers/*.sh`` just run the matching ``config/*.sh`` for the current user.
 
 My fork of fff works out of the box with wayPreview. However, most terminal file
 managers have a configuration file that allows to bind keys to shell commands.
@@ -122,10 +119,11 @@ your file manager's config from wayPreview's config.
 The use of wayPreview isn't necessarily limited to previews for terminal file
 managers though.
 
-If for whatever reason something brakes, just delete the socket file:
+If for whatever reason something brakes, just delete the socket files (each
+wayPreview session has a different one, see ``--socket`` option):
 
 ```bash
-sudo rm /tmp/wayPreview
+sudo rm /tmp/wayPreview*
 ```
 
 You may want to make the window always floating: this is how you do that on the
