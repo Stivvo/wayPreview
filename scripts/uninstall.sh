@@ -9,11 +9,13 @@ case $1 in
     rm -r /usr/local/share/doc/wayPreview
 ;;
 
-"config")
+"wrappers")
     rm -r $HOME/.local/bin/wrapSetPos.sh
     rm -r $HOME/.local/bin/wrapWayPclient.sh
     rm -r $HOME/.local/bin/wrapWayPserver.sh
 ;;
 
 *)
-    echo "values accepted as parameter: 'program', 'config'"
+    echo "values accepted as parameter: 'program', 'wrappers'"
+    ;;
+esac

@@ -54,7 +54,7 @@ process just run:
 
 ```bash
 sudo ./install.sh install program
-./install.sh install config
+./install.sh install wrappers
 ```
 
 Run the second commands for each user and add ``~/.local/bin`` to their path to
@@ -64,7 +64,7 @@ use the wrappers. Backup wrappers are stored in ``/usr/local/etc/wayPreview``
 
 ```bash
 sudo ./uninstall.sh program
-./uninstall.sh config
+./uninstall.sh wrappers
 ```
 
 Run the last command for each user. I encourage to look at
@@ -77,7 +77,7 @@ To install symbolic links for development:
 
 ```bash
 sudo ./install.sh link program
-./install.sh link config
+./install.sh link wrappers
 ```
 
 ### Universal package
