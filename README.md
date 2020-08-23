@@ -163,6 +163,9 @@ Options:
   -h, --help        Displays help on commandline options.
   --help-all        Displays help including Qt specific options.
   --quit            close and disconnect the server
+  --socket <name>   name for the wayPreview instance (string to append to the
+                    socket <name>), allows to run more than one instance of
+                    wayPreview at the same time, optional
   --wsize <ratio>   set the <ratio>, between window height and screen height
                     (0.5 uses half of the screen height), 0.3 is default if not
                     set
@@ -182,6 +185,7 @@ Options:
 
 Arguments:
   [file]            Image file to open
+
 ```
 
 The ``--infinite`` option is useful when running wayPreviewServer in full screen

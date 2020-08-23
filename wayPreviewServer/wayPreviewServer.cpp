@@ -35,10 +35,10 @@ ImageViewer::ImageViewer(QWidget *parent)
     resize(QGuiApplication::primaryScreen()->availableSize() * wSize);
 }
 
-void ImageViewer::startServer()
+void ImageViewer::startServer(QString socketN)
 {
     server = std::make_unique<QLocalServer>();
-    if (server->listen("wayPreview"))
+    if (server->listen("wayPreview" + socketN))
         connect(server.get(), &QLocalServer::newConnection, this, &ImageViewer::onNewConnection);
     else
         qDebug() << "issues starting server: " << server->errorString();

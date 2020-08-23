@@ -11,6 +11,11 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument("[file]", "Image file to open");
     parser.addOptions(
         {QCommandLineOption("quit", "close and disconnect the server"),
+         QCommandLineOption(
+             "socket",
+             "name for the wayPreview instance (string to append to the socket <name>), allows to "
+             "run more than one instance of wayPreview at the same time, optional",
+             "name"),
          QCommandLineOption("wsize",
                             "set the <ratio>, between window height and screen height (0.5 uses "
                             "half of the screen height), 0.3 is default if not set",
@@ -63,7 +68,10 @@ int main(int argc, char *argv[])
         msg += " wx " + parser.value("wx") + " wy " + parser.value("wy");
 
     QLocalSocket socket;
-    socket.connectToServer("wayPreview");
+    socket.connectToServer("wayPreview"
+                           + (parser.isSet("socket") && parser.value("socket").toDouble() >= 0
+                                  ? parser.value("socket")
+                                  : ""));
     if (!socket.isValid()) {
         qDebug() << "cannot connect: " << socket.errorString();
         return 1;

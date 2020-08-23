@@ -33,7 +33,7 @@ private slots:
     void zoomOut();
 
 public:
-    void startServer();
+    void startServer(QString socketN = "");
     void setWsize(double newScale);
     void zoomWindow(double factor);
     void toggleInfinite();
