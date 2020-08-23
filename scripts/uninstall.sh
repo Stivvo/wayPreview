@@ -1,10 +1,10 @@
 #!/bin/sh
 
-rm /usr/bin/wayPreviewClient
-rm /usr/bin/wayPreviewServer
-rm /usr/bin/wrapWayPclient.sh
-rm /usr/bin/wrapWayPserver.sh
-rm /usr/bin/wrapSetPos.sh
+rm /usr/local/bin/wayPreviewClient
+rm /usr/local/bin/wayPreviewServer
+rm /usr/local/bin/wrapWayPclient.sh
+rm /usr/local/bin/wrapWayPserver.sh
+rm /usr/local/bin/wrapSetPos.sh
 
-rm -r /etc/wayPreview
-rm -r /usr/share/doc/wayPreview
+rm -r /usr/local/etc/wayPreview
+rm -r /usr/local/share/doc/wayPreview

@@ -58,7 +58,7 @@ sudo ./install.sh install program
 ```
 
 Run the second commands for each user and add ``~/.local/bin`` to their path to
-use the wrappers. Backup wrappers are stored in ``/etc/wayPreview``
+use the wrappers. Backup wrappers are stored in ``/usr/local/etc/wayPreview``
 
 ### Uninstall
 
