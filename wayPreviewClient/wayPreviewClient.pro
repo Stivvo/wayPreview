@@ -1,4 +1,4 @@
 QT += widgets network
-CONFIG += c++17
+CONFIG += c++1z
 
 SOURCES       = main.cpp

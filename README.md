@@ -33,7 +33,7 @@ To run only ``qt5-base`` (Archlinux) or ``qt5-default`` (Debian) is required.
 
 ### Compile
 
-To compile, Qt version must be at least 5.14.
+To compile, Qt version must be at least 5.15.
 
 ```bash
 mkdir wayPreview1
