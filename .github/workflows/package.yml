@@ -1,0 +1,71 @@
+name: linuxPackages
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+*'
+
+jobs:
+  packaging:
+    strategy:
+      matrix:
+        qt_version: [5.15.0]
+        platform: [ubuntu-20.04]
+        arch: [x64]
+      fail-fast: false
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Dependencies
+        shell: sh
+        run: |
+          sudo apt install libgl-dev libx11-dev libxkbcommon-x11-dev
+      - name: Installing Qt
+        uses: jurplel/install-qt-action@v2.6.2
+        with:
+          version: ${{ matrix.qt_version }}
+          arch: ${{ matrix.qtarch }}
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+      - name: SetEnv
+        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+
+      - name: Build
+        shell: sh
+        run: |
+          cd scripts
+          ./compile.sh
+      - name: makeUniversal
+        shell: sh
+        run: |
+          cd scripts
+          ./universal.sh $RELEASE_VERSION
+      - name: makeDebian
+        shell: sh
+        run: |
+          cd scripts
+          ./debian.sh $RELEASE_VERSION
+      - name: UploadUniversal
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ../wayPreview_universal_*.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "linux universal binary release"
+
+      - name: UploadDebian
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ../wayPreview_debian_*.deb
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "debian package release"
