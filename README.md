@@ -79,7 +79,7 @@ sudo ./install.sh link program
 ### From packages
 
 Go to [releases](https://github.com/Stivvo/wayPreview/releases), download the
-universal package (or create your own with ``./createPackage.sh``), then:
+universal package (or create your own with ``./universal.sh``), then:
 
 ```bash
 unzip wayPreview_universal_v1.1.zip

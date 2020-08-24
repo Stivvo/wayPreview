@@ -1,8 +1,8 @@
 #!/bin/sh
 
 [ -z "$1" ] && echo "please provide a version tag" && exit
-[ -z "$2" ] && echo "please provide a version number" && exit
-
+VERSION=${1##v}
+echo version $VERSION
 RELEASEDIR="wayPreview_debian_$1"
 
 # creating package dir
@@ -19,13 +19,13 @@ cp ../wayPreview/README.md usr/share/doc/wayPreview/
 # debian sutff
 mkdir DEBIAN
 echo "Package: wayPreview
-Version: $2
+Version: $VERSION
 Section: custom
 Priority: optional
 Architecture: all
 Essential: no
 Maintainer: Stivvo
-Description: A client server, wayland native, terminal emulator independent image previewer" >> DEBIAN/control
+Description: A client server, wayland native, terminal emulator independent image previewer" > DEBIAN/control
 
 cd ..
 dpkg-deb --build "$RELEASEDIR"
