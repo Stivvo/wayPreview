@@ -80,7 +80,7 @@ sudo ./install.sh link program
 ./install.sh link wrappers
 ```
 
-### Universal package
+### From packages
 
 Go to [releases](https://github.com/Stivvo/wayPreview/releases), download the
 universal package (or create your own with ``./createPackage.sh``), then:
@@ -88,9 +88,11 @@ universal package (or create your own with ``./createPackage.sh``), then:
 ```bash
 unzip wayPreview_universal_v1.1.zip
 cd wayPreview_universal_v1.1
-sudo ./install.sh
-./installConfig.sh
+./install.sh
 ```
+
+When installing the debian package is required to copy the wrappers in
+``/etc/wayPreview`` to a directory in the user path.
 
 ## Configuration
 
