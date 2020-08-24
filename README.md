@@ -47,17 +47,15 @@ cd scripts
 
 Manually add ``../../clientBuild/wayPreviewClient``,
 ``../../serverBuild/wayPreviewServer`` and all the scripts in the
-[wrappers](wrappers) directory to your path.
-
-However, in case of multiple users on the system or for a simpler install
-process just run:
+[wrappers](wrappers) directory to your path. However, in case of multiple users
+on the system or for a simpler install process just run:
 
 ```bash
 sudo ./install.sh install program
 ./install.sh install wrappers
 ```
 
-Run the second commands for each user and add ``~/.local/bin`` to their path to
+Run the last commands for each user and add ``~/.local/bin`` to their path to
 use the wrappers. Backup wrappers are stored in ``/usr/local/etc/wayPreview``
 
 ### Uninstall
@@ -67,9 +65,7 @@ sudo ./uninstall.sh program
 ./uninstall.sh wrappers
 ```
 
-Run the last command for each user. I encourage to look at
-[install.sh](scripts/install.sh) and [uninstall.sh](scripts/uninstall.sh) before
-running them.
+Run the last command for each user.
 
 ### Development
 
